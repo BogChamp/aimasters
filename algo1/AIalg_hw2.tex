@@ -1,0 +1,414 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{subrproblem}
+\newcounter{prvar}
+
+
+\def\pr{\medskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}}
+\def\pru{\medskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}}
+\def\prstar{\medskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+\def\prpfrom[#1]{\medskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prp{\medskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+
+\def\prpvar{\medskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+\def\prpv{\medskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prv{\medskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+
+\def\prpstar{\medskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prdag{\medskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\upr{\medskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\medskip\noindent\stepcounter{subproblem}\setcounter{subrproblem}{0}{\sf \thesubproblem .}\;}
+\def\prsubr{\medskip\noindent\stepcounter{subrproblem}{\bf \asbuk{subrproblem})}\;}
+\def\prsubstar{\medskip\noindent\stepcounter{subproblem}\setcounter{subrproblem}{0}{$\mathsf{\thesubproblem}^*$\negthickspace.}\;}
+\def\prsubrstar{\medskip\noindent\stepcounter{subrproblem}{$\text{\bf \asbuk{subrproblem}}^*\text{\textbf{)}}\mathbf{}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+
+\DeclareDocumentCommand{\Prstar}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+		\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf$\mathbf{\theproblem^*}$
+		~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+		 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+\def\prskip{
+	\medskip
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: Алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 2}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\usepackage{enumitem}
+\usepackage[linesnumbered]{algorithm2e}   
+\usepackage{wrapfig}%wrapfigure
+
+\begin{document}
+	
+
+В скобках к задачам указаны баллы. Если баллы не указаны, то задачу можно не сдавать (как и задачи со звёздочкой).
+
+	\Pr[2] Решите уравнения в целых числах, используя расширенный алгоритм Евклида:
+	
+	\prsubr $ 238 x + 385 y = 133 $; 
+	
+    \begin{tabular}{ |c|c|c| } 
+    \hline
+    x & y & $ 238 x + 385 y$ \\ 
+    0 & 1 & 385 \\ 
+    1 & 0 & 238 \\ 
+    -1 & 1 & 147 \\ 
+    2 & -1 & 91 \\ 
+    -3 & 2 & 56 \\
+    5 & -3 & 35 \\
+    -8 & 5 & 21 \\
+    13 & -8 & 14 \\
+    -21 & 13 & 7 \\
+    \hline
+    \end{tabular}
+    \newline
+    \\$238*(-21) + 385*13 = 7$ 
+    \\$133 / 7 = 19$
+    \\$(-21, 13)*19=(-399, 247)$
+    \\Answer is: x = -399, y = 247
+    
+    \prsubr $143x+121y=52$.
+    
+    \begin{tabular}{ |c|c|c| } 
+    \hline
+    x & y & $ 143 x + 121 y$ \\ 
+    1 & 0 & 143 \\ 
+    0 & 1 & 121 \\ 
+    1 & -1 & 22 \\ 
+    -5 & 6 & 11 \\ 
+    \hline
+    \end{tabular}
+    \newline
+    \\НОД(143, 121)=11
+    \\52 не делится на 11 \Rightarrow\ $решения не существует$
+	\prend
+	
+	\Pr[2] Решите сравнение $68x + 85 \equiv 0 \pmod{561} $ с помощью расширенного алгоритма Евклида. (Требуется найти все решения в вычетах)
+	
+	\newline Найдем $68^{-1}\ mod\ 561$
+	\\$68y+561N=1$
+	
+	\begin{tabular}{ |c|c|c| } 
+    \hline
+    y & N & $ 68y+561N$ \\ 
+    0 & 1 & 561 \\ 
+    1 & 0 & 68 \\ 
+    -8 & 1 & 17 \\ 
+    \hline
+    \end{tabular}
+	\newline
+	\\НОД(68,561)=17
+	\\85 также делится на 17. Можем поделить сравнение на 17:
+	\\$4x+5\equiv 0 \pmod{33}$
+	\newline Найдем $4^{-1}\ mod\ 33$
+	\\$4y+33N=1$
+	
+	\begin{tabular}{ |c|c|c| } 
+    \hline
+    y & N & $ 4y+33N$ \\ 
+    0 & 1 & 33 \\ 
+    1 & 0 & 4 \\ 
+    -8 & 1 & 1 \\ 
+    \hline
+    \end{tabular}
+    \newline
+    \\$4^{-1}=-8\pmod{33}$
+    \\$x=(-5)*(-8)=40=7\pmod{33}$
+    \\Ответ: x = 7 + 33z, z = 0,1,2,..,16.
+	\prend
+
+	\Pr[2] Вычислите $7^{13} \mod 167$, используя алгоритм быстрого возведения в степень.
+    \newline
+    \\$7^{13}=7^{6}*7^{6}*7$
+    \\$7^{6}=7^{3}*7^{3}$
+    \\$7^{3}=7*7*7=49*7=343=9\mod 167$
+    \\$7^{6}=9*9=81\mod 167$
+    \\$7^{13}=81*81*7=81*567=81*66=2\mod 167$
+	\prend
+
+	\Pr[3][ДПВ 1.8] Доказать корректность рекурсивного алгоритма умножения Divide (раздел 1.1., рис. 1.2.) и получить верхнюю оценку на время работы.
+	\newline
+    \\В функции Divide происходит рекурсивный вызов: Divide(x,y) \to Divide(x/2,y) \to Divide(x/$2^{2}$,y)...
+    \\Таким образом алгоритм точно сойдется, так как при каждом рекурсивном вызове число x уменьшается в два раза. Количество вызовов будет иметь асимптотику $O(n)$, где n - длина в битах числа х.
+    \\При вызове Divide(x/2,y) получаем $x'=x\ div\ 2,\ y'=y.\ x'=y*q'+r'$.
+    \\Если x четный, то $x = x' * 2 = (y*q'+r')*2=y*(q'*2)+r'*2 \to q = 2*q', r = 2*r'$.
+    \\Если же x нечетное, то $x = x' * 2 + 1=(y*q'+r')*2+1=y*q'*2+r'*2+1 \to q = q'*2,r=2*r'+1$
+    \\По итогу имеем $x=y*q+r$. Если r $\geq y \to x = y*q + r = y*q+(r-y)+y=y*(q+1)+r-y \to r = r-y, q=q+1.$
+    \\Таким образом, алгоритм корректен. Верхняя оценка на алгоритм - O(n), так как при каждом вызове длина числа в битах сокращается на 1 из-за деления числа на 2. 
+    \\T(n)=O(n)=O(log(x))
+	\prend
+		
+
+	\Pr[5] Функции $T_1(n)$ и $T_2(n)$ заданы рекуррентными формулами, известно что при $i = 1,2$ справедливо $T_i(1) = T_i(2) = T_i(3) = 1$.
+
+	\prsub Найдите асимтотику роста функции~$T_1(n) = T_1(n-1)+cn$ (при $n > 3$);
+    \newline
+    \\Посмотрим на $T_1(n)$ при $n \ge 4$. $T_1(4)=1+c*4, T_1(5)=1+c*4+c*5, T_1(6)=1+c*4+c*5+c*6$
+    \\Как видно из этих членов последовательности, в состав $T_1(n)$ входит арифметическая последовательность, с первым членом 4 и шагом 1.
+    \\Докажем по индукции. Пусть для n выполняется равенство $T_1(n)=1+c*(n+4)*(n-3)/2$
+    \newline
+    \\Проверим для $T_1(n+1)$.
+    \\$T_1(n+1)=1+c*(n+4)*(n-3)/2+c*(n+1)=1+c*(n^{2}+n-12+2*n+2)/2=1+c*(n^{2}+3*n-10)/2=1+c*(n+5)*(n-2)/2=1+c*((n+1)+4)*((n+1)-3)/2$;
+    \\Таким образом, равенство $T_1(n)=1+c*(n+4)*(n-3)/2$ верно. И асимптотика $T_1(n)$ равна $\Theta(n^2)$
+    \newline
+	\prsub Докажите, что для функции $T_2(n) = T_2(n-1)+4T_2(n-3)$ (при $n > 3$) справедлива оценка $\log T_2(n) = \Theta(n)$.
+    \newline
+    \\Рассмотрим первые члены последовательности $T_2(n), n > 3$
+    \\$T_2(4) = 1 + 4*1, T_2(5) = 1 + 4*1 + 4*1, T_2(6) = 1 + 4*1 + 4*1 + 4*1, ...$
+    \\Заметим, что для членов последовательнсти выполняется $2^n > T_2(n) > 2^{n-3}$
+    \\Проверим для члена $T_2(n+1)$. $T_2(n+1) = T_2(n) + 4*T_2(n-2) < 2^n+4*2^{n-2}=2^{n+1}$
+    \\$T_2(n+1)= T_2(n) + 4*T_2(n-2)>2^{n-3}+4*2^{n-5}=2^{n-2}=2^{(n+1)-3}$
+    \\Таким образом доказано, что $2^n > T_2(n) > 2^{n-3}$, а значит $n > log(T_2(n)) > n-3$ и $\log T_2(n) = \Theta(n)$.
+    \newline
+	\prsubstar Найдите (точную) асимтотику роста функции $T_2(n)$.
+	\\У нас есть линейное рекуррентное соотношение. Решим его:
+	\\$\lambda^3-\lambda^2-4=0$
+	\\$\lambda_1=2, \lambda_2=-1/2-\sqrt{7}*i/2, \lambda_3=-1/2+\sqrt{7}*i/2$
+	\\Имеем три уравнения:$c_1*\lambda_1^n+c_2*\lambda_2^n+c_3*\lambda_3^n=T_2(n), n=1,2,3$
+	\\Решив систему уравнений, получим ответы: $c_1=1/4, c_2=(9*\sqrt{7}+35i)/(7*(3*\sqrt{7}-31i)), c_3=-1/8-3i*\sqrt{7}/56$
+	\\$T_2(n)=2^{n-2}+(9*\sqrt{7}+35i)/(7*(3*\sqrt{7}-31i))*(-1/2-\sqrt{7}*i/2)^n+(-1/8-3i*\sqrt{7}/56)*(-1/2+\sqrt{7}*i/2)^n$
+	\\Как видно из формулы, комплексные члены при n стремящемся к бесконечности по модулю стремятся к нулю. Остается член $2^{n-2}$. Получается асимптотика равна $T_2(n)=\Theta(2^{n-2})$
+	\prend
+	
+	\Pr[4] В низкоуровневом языке программирования используются регистры, в которых хранятся двоичные последовательности одинаковой, но произвольной длины. С регистрами разрешены следующие операции: {\sf 1:} изменить значение первого бита, {\sf 2:} изменить значение бита, стоящего после первой единицы. Постройте алгоритм, который получив на вход содержимое двух регистров пишет код, реализующий копирование содержимого первого регистра во второй и оцените сложность этого алгоритма.
+	\newline
+	\\Рассмотрим процедуру изменения бита в регистре. Пусть он стоит на k-ом месте. Чтобы изменить его, у нас либо первая единица должна стоять на k-1 месте, либо мы сначала должны поставить единицу на k-1 место, а перед ними поставить нули. Итого, чтобы изменить k-ый бит, нам надо уметь изменять k-1-ый бит, и так по аналогии. Рассмотрим ассимптотику операций, которые необходимо выполнить для изменения k бита. По условию, первый бит мы можем менять без условий. Чтобы гарантированно изменить второй бит, надо поставить первый бит в единицу, затем изменить второй бит с помощью операции 2, и снова поменять первый бит. Для этого нам понадобилось $2^{2}-1$ операций. Докажем по индукции, что для изменения k-ого бита необходимо в худшем случае $2^{k}-1$ операций. Пусть это верно для k=n. Проверим k=n+1. В худшем случае, перед битом стоят все нули. Бит под номером n мы изменим за $2^{n}-1$ операций. Далее надо использовать операцию 2, а затем убрать единицу на n месте для возможности изменения дальнейших битов. Это снова займет $2^{n}-1$ операций. Итого: $2^{n}-1 + 1 + 2^{n}-1 = 2^{n+1}-1$ операций. Таким образом, для изменения k-бита надо $2^{k}-1$ операций. 
+	\\Из условий, чтобы изменить последний бит в регистре, надо поставить перед ним единицу, а перед единицей занулить все. Для этого, начинаем занулять все биты, начиная с первого. Для этого понадобится \[ \sum_{k=1}^{k=n} 2^{k}-1 = 2^{n+1}-n \] операций. Затем, мы начинаем копировать биты из первого регистра. Если бит первого регистра больше второго, значит надо поменять этот бит во втором регистре, иначе ничего не менять. Таким образом, за два прохода по регистру, можно скопировать первый регистр. 
+	\\Для этого понадобится $T(n)=O(2^{n+2}-2n)$ операций. Корректность следует из построенного алгоритма.
+
+\newpage	
+
+	\Pr[null][Шень \textbf{1.1.17}] Добавим в~алгоритм Евклида дополнительные
+	переменные~\w{u}, \w{v},~\w{z}:%
+	\begin{verbatim}
+	         m := a; n := b; u := b; v := a;
+	        {инвариант: НОД (a,b) = НОД (m,n); m,n >= 0 }
+	        while not ((m=0) or (n=0)) do begin
+	        | if m >= n then begin
+	        | | m := m - n; v := v + u;
+	        | end else begin
+	        | | n := n - m; u := u + v;
+	        | end;
+	        end;
+	        if m = 0 then begin
+	        | z:= v;
+	        end else begin {n=0}
+	        | z:= u;
+	        end;
+	\end{verbatim}
+	Докажите, что после исполнения алгоритма значение~\w{z}
+	равно удвоенному наименьшему общему кратному
+	чисел~\w{a},~\w{b}: $\w{z} = \w{2}\cdot\w{НОК(a,b)}$.
+    \newline
+    \\Рассмотрим выражение $m*u+n*v$.
+    \\Если m > n: $(m-n)*u+n*(v+u)=m*u-n*u+n*v+n*u=m*u+n*v$
+    \\Иначе: $m*(u+v)+(n-m)*v=m*u+m*v+n*v-m*v=m*u+n*v$
+    \\Выражение не меняет значения. И оно равно 2*a*b в начале. Еще с помощью m и n выполняется алгоритм Евклида нахождения НОД(a,b). Так что по окончании алгоритма Может быть два исхода. Если m = 0, то n = НОД(a,b). И m*u+n*v=n*v=2*a*b $\to$ v = 2*a*b / n = 2*НОД(a,b)*НОК(a,b)/НОД(a,b)=2*НОК(a,b)
+    \\Аналогично, если n=0, то m=НОД(a,b) и u = 2*НОК(a,b).
+    \\Ч.т.д.
+	\prend
+
+	\prstar Предложите полиномиальный алгоритм нахождения периода десятичной дроби $\frac{n}{m}$. Докажите его корректность и оцените асимптотику.
+
+	\prend
+
+	\prstar Доказать, что \w{inv(i, p): return i > 1 ? -(p/i)*inv(p\%i, p) \% p : 1} возвращает обратный остаток, доказать, что работает за логаримф и развернуть рекурсию.
+	
+	\prstar $f(1) = g(1) = 1$
+	$f(n) = a\cdot g(n-1) + b\cdot f(n-1)$
+	$g(n) = c\cdot g(n-1) + d\cdot f(n-1)$
+	где $a,b,c,d$ положительные константы. Предложите алгоритм вычисляющий $f(n)$ со сложностью $O(\log n)$ арифметических операций. 
+	
+	
+
+\end{document}
+  

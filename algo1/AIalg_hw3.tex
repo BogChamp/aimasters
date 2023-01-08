@@ -1,0 +1,388 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\PR}{ O{null} }{\setcounter{subproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem~{\sf(\bracketspace{#1})}.}}	
+
+
+
+\def\prend{
+	\medskip
+%	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: Алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 3}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\usepackage{enumitem}
+\usepackage[linesnumbered]{algorithm2e}   
+
+\newcommand{\comments}[2][Комментарий]{
+\medskip
+	\noindent{\bfseries #1: }{\textsl{#2}}
+%\medskip	
+}
+
+\def\ukaz{\noindent\textbf{Указание.} }
+
+\begin{document}
+	\PR[2] Определим $f(n)$ как количество выводов <<Hello, World!>> следующей функцией (на входе $n$).  Оцените асимптотику роста $f(n)$. 
+
+% \begin{figure}[h]
+\begin{algorithm}%algorithm2e
+ 	\SetKwFunction{KwPrint}{print}
+%	\SetKwFunction{KwFn}{Fn}
+%	\SetKwInOut{Input}{Вход}\SetKwInOut{Output}{Выход}
+	\SetKwProg{Fn}{Function}{:}{end}
+
+	\SetKwFunction{HW}{HelloWorld}
+%	\Multiply($x,y$){ %\tcc*[h]{Рекурсивный алгоритм умножения ([\textbf{ДПВ}] раздел 1.1.2)}
+\Fn{\HW{$n$}}{ %\tcc*[h]{}
+
+	
+	\uIf{$n > 2022$}{
+					   \HW{$\lfloor n/4 \rfloor$}\; 
+						\KwPrint{"Hello, World!"}\;
+						\HW{$\lfloor n/4 \rfloor$}\;
+						\For{$i = 1$ \KwTo $2022$}
+						{
+						\KwPrint{"Hello, World!"}\;
+						}
+						\HW{$\lfloor n/4 \rfloor$}\;
+	}
+	\Else{  
+		\For{$i = 1$ \KwTo $n$}{
+				\KwPrint{"Hello, World!"}\;
+		}	 
+	}
+}	
+	
+\end{algorithm}
+%\end{figure}
+%\vspace*{-2ex}
+	
+	\comments{Для простоты можно, считать, что в рекуррентных соотношениях числа не целые, а вещественные. Тогда можно игнорировать округления.}
+	
+	\newline
+	\\
+	\\Функция HelloWorld делает три рекурсивных вызова и выводит 2023 раза "Hello world". При достаточно малых n < 2022 вызовов не происходит.
+	\\ Выпишем формулу вывода функции: T(n) = 3*T($\lfloor n/4 \rfloor$) + 2023
+	\\ Выясним, применима ли здесь основная теорема рекурсии:
+	\\ a = 3, b = 4, g(n) = 2023. d = $\log_b{a}$ = $\log_4{3}$
+	\\ $g(n) = O(1)$ при любых n $\to \exists \epsilon > 0: g(n) = O(n^{d-\epsilon})(\epsilon = \log_4{3})$
+	\\ По первому пункту основной теоремы рекурсии, асимптотика количества выводов равна $f(n)=\Theta(n^{\log_4{3}})$
+
+\medskip
+
+	\PR[3] Найдите $\Theta$-асимптотику рекуррент: 
+
+	\prsubr $T(n) = 36T(\lfloor \frac{n}{6}\rfloor)+n^2$;\;\; 
+	\newline
+	\\ $a = 36, b = 6, f(n) = n^2, d = \log_6{36}=2$
+	\\ $f(n) = \Theta(n^d)$
+	\\ По второму пункту теоремы о рекурсии: $T(n) = \Theta(n^{d}*\log(n)) = \Theta(n^{2}*\log(n))$
+	\newline
+	\\
+	\prsubr $T(n) = 3T(\lfloor\frac{n}{3}\rfloor)+n^2$;\;\; 
+	\\ $a = 3, b = 3, f(n) = n^2, d = \log_3{3}=1$
+	\\ Для функции f(n) выполняются два условия:
+	\\ 1) $\exists \epsilon > 0 : f(n) = \Omega(n^{d+e})$
+	\\ 2) $\exists 0 < c < 1: a*f(n/b) = 3*(n/3)^2 = n^2/3 < c*n^2, c = 2/3 например$
+	\\ По третьему пункту основной теоремы о рекурсии: $T(n) = \Theta(n^2)$
+	\newline
+	\\
+	\prsubr$T(n) = 4T(\lfloor\frac{n}{2}\rfloor)+\lfloor\frac{n}{\log n}\rfloor$.
+	\newline
+	\\ $a = 4, b = 2, f(n) = \lfloor\frac{n}{\log n}\rfloor, d = \log_2{4}=2$
+	\\ $\forall n > 2$ выполняется : $\lfloor\frac{n}{\log n}\rfloor < n^2=n^d$
+	\\ Таким образом, $f(n) = O(n^d)$ и $T(n) = \Theta(n^d)$
+
+	\prend
+
+	\PR[4] Оцените трудоемкость рекурсивного алгоритма, разбивающего исходную задачу размера $n$ на $n$ задач размеров $\lceil \frac n 2 \rceil$ каждая, используя для этого $\Theta(n)$ операций. 
+
+	\prsub Можно считать $n$ степенью двойки.                
+
+	\prsubstar Решите для произвольного $n$ (избавляться от округлений недопустимо).
+	\newline
+	\\ Распишем формулу для T(n): $T(n)=n*T(n/2)+n = n*n/2*T(n/4)+n*n/2 + n ... = \sum\limits_{i=1}^{\log(n)} \frac{n^i}{2^{i(i-1)/2}}<\sum\limits_{i=1}^{\log(n)}n^i=\frac{n*(n^\log(n)-1)}{n-1}=O(n^{\log(n)})$
+	\\$\sum\limits_{i=1}^{\log(n)} \frac{n^i}{2^{i(i-1)/2}} > \frac{1}{2^{\log(n)*(\log(n) - 1)/2}} * \sum\limits_{i=1}^{\log(n)}n^i=\frac{1}{n^{(\log(n) - 1)/2}}*\frac{n*(n^\log(n)-1)}{n-1}=n^{\log(n)/2 - 1/2}$
+	\\Таким образом $n^{\log(n)/2 - 1/2} < T(n) < n^{\log(n)}$. T(n) = O($n^{\log(n)}$), T(n) = $\Omega(n^{\log(n)/2 - 1/2})$
+	\prend
+	
+\PR[3][ДПВ 1.33] Постройте эффективный алгоритм для вычисления НОК и оцените его сложность. В данной задаче используется модель вычислений с атомарными битовыми операциями (т.\,е. время выполнения арифметических действий пропорционально длине чисел).          
+\newline
+\\ Допустим, нам даны два числа a и b, и пусть длина максимального из них в двоичном представлении равна n. Как известно, a*b = НОК(a,b) * НОД(a, b). Таким образом, для нахождения НОК нам нужно найти НОД. По условию, найти a*b можно за O(n), то есть пропорционально длине чисел. Нужно найти НОД(a, b). Для этого подойдет алгоритм Евклида: НОД(a,b) = НОД(a,b mod a). Как было показано на 2 лекции, алгоритм Евклида рекурсивно вызывается O(n) раз, где n - сумма длин чисел a и b. В нашем случае можно считать, что алгоритм сработает за O(2*n), то есть тоже за линию. На каждом шаге вызова рекурсивной функции вызывается деление, поэтому сложность алгоритма будет равна $O(n*n)=O(n^2)$. Таким образом, за $O(n^2)$ находим НОД, и после этого за O(n) поделить a*b на НОД. Таким образом мы найдем НОК. Сложность алгоритма будет равна $O(n^2)$. Корректность вытекает из корректности алгоритма Евклида.
+
+	\prend
+       
+                   
+\PR[3] На вход подаётся числовой массив $A$ из $n$ элементов. Требуется найти число инверсий в массиве, т.\,е. пар индексов $(i,j)$, таких что $i<j$ и $a[i] > a[j]$.
+
+\smallskip
+
+\ukaz Модифицируйте алгоритм сортировки слиянием. 
+\newline
+\\ Нам надо найти число инверсий, так что будем считать, что менять местами элементы массива разрешено.
+Будем использовать алгоритм сортировки слиянием для подсчета. Рекурсивная функция будет возвращать количество инверсий на массиве. Для этого, заведем два счетчика: количество элементов с правого подмассива, которые меньше текущего элемента в левом подмассиве и оставшееся количество элементов в левом подмассиве. После рекурсивного вызова функции для двух половин массива, мы начинаем обходить отсортированные массивы за линию. Если при сравнении элементов из правой и левой половины элемент из левой половины больше, то мы увеличиваем первый счетчик на 1. Если же правый элемент больше, то мы перемножаем счетчики, добавляем их к текущему количеству инверсий, первый счетчик выставляем в ноль а второй уменьшаем на 1. И так пока все элементы не будут добавлены в готовый отсортированный массив. Количество инверсий в итоге будет равно количество инверсий в подмассивах плюс количество инверсий подсчитанное на текущем этапе.
+\\ Докажем корректность. Если массив состоит из одного элемента, то инверсий нет. Если из двух, мы просто сравниваем два элемента между собой. База индукции есть. Теперь, рассмотрим случай для некоторого n. Количество инверсий для двух половин массива уже посчитаны, теперь нужно сравнить каждый элемент левого элемента с правым. Если текущий элемент слева меньше текущего элемента справа, то инверсии нет. Если же элемент слева больше, то значит правый элемент меньше всех элементов, что остались слева. Таким образом, перемножение счетчиков сверху как раз дает количество инверсий для этого случая. Просуммировав такие произведения, мы получаем количество инверсий для элементов слева по отношению к элементам справа. Количество инверсий в подмасивах уже получено, таким образом все инверсии для массива подсчитаны.
+\\Сложность такого алгоритма будет как у сортировки слиянием, $\Theta(n*\log(n))$.(считаем что перемножения это атомарные действия)
+\prend
+
+%\PR[2] Докажите, что если $T_1(n) = aT_1(\frac{n}{b})+ f(n)$,\; $T_2(n) = aT_2(\frac{n}{b})+ g(n)$ и $f(n) = \Theta(g(n))$, то $T_1(n) = \Theta(T_2(n))$.
+
+\PR[2] Предположим, удалось установить, что любое число можно возвести в квадрат за $O(n)$, где $n$ -- длина числа в двоичной записи. Докажите, что тогда любые два числа можно перемножать за $O(n)$, где $n$ -- длина максимального из чисел в двоичной записи.
+\newline
+\\Пусть у нас есть два числа a и b. Рассмотрим их сумму a+b. Если она делится на 2, то делим, и получаем
+c = (a + b) / 2. Из построения c, верно равенство c - a = b - c. Обозначим это число d = c - a. Тогда произведение a*b можно представить как $a*b = (c - d)*(c + d) = c^2 - d^2$. По условию, возводить в квадрат можно за O(n). Таким образом нужно два раза возвести в квадрат два числа, и вычесть одно из другого, все это можно сделать за O(n). Чтобы найти c, нужно также сложить два числа за O(n) и поделить на два, что в двоичной записи равно отбрасыванию последнего бита. В целом, нахождение произведения занимает O(n) действий.
+\\Если же сумма a+b не делится на два, вычитаем из b единицу: a*(b-1+1) = a*(b-1) + a. Сумма a+b-1 делится на два, поэтому действуем как описано выше, в конце просто прибавляем а к произведению a*(b-1).
+
+\prend
+
+
+
+
+	\PR[6] Найдите $\Theta$-асимптотику рекуррентной последовательности $T(n)$, считая что $T(n)$ ограничено константой при достаточно малых $n$:
+
+	\prsubr $T(n)=T(\lfloor \alpha n\rfloor)+T( \lfloor(1-\alpha)n\rfloor)+\Theta(n)$\quad  ($0 < \alpha < 1$);
+	\newline Пусть $\alpha < 1 - \alpha$. Дерево рекурсии будет иметь треугольный вид. Если посмотреть на каждый уровень дерева, то сумма операций в узлах уровня будет равняться n. $\alpha*n + (1-\alpha)*n = n$, $\alpha^2*n + 2*\alpha*(1-\alpha)*n+(1-\alpha)^2*n=n$ и так далее. 
+	\\Рассмотрим T(n): $n*\log_{1/\alpha}(n) < T(n) < n*\log_{1/(1-\alpha)}$. Таким образом асимптотика последовательности T(n): $T(n) = \Theta(n*log(n))$
+
+	\prsubr $T(n)=T(\lfloor n/2\rfloor)+2\cdot T(\lfloor n/4\rfloor)+\Theta(n)$;
+	\newline
+	\\ Дерево рекурсии будет иметь высоту не выше $\log_2(n)$ и не ниже $\log_4(n)$. Если посмотреть на количество операций в узлах на определенном уровне, то до уровня $\log_4(n)$ там будет n операций. Таким образом, для T(n) выполняется:
+	\\ $n*\log_4(n) < T(n) < n*\log_2(n)$
+	\\Таким образом, асимптотика $T(n) = \Theta(n*log(n))$ 
+
+	\prsubr $T(n) = 27T(\frac{n}{3})+\frac{n^3}{\log^2 n} $.
+	\newline
+	\\a = 27, b = 3, f(n) = $\frac{n^3}{\log^2 n}$, d = $\log_3(27)$ = 3, $h = log(n)$
+	\\ $T(n) = \sum\limits_{i=0}^{h-1} 27^i * f(n/3^i) = \sum\limits_{i=0}^{h-1} n^3 / (log^2(n/3^i)) = n^3 * \sum\limits_{i=0}^{h-1} \frac{1}{(h - i)^2}$
+	\\ $\sum\limits_{i=0}^{h-1} \frac{1}{(h - i)^2} < \pi^2 / 6$, так как это неполная сумма обратных квадратов. Но еще $\sum\limits_{i=0}^{h-1} \frac{1}{(h - i)^2} > 1.$
+	\\ Таким образом $n^3 < T(n) < n^3 * \pi^2 / 6$ и $T(n) = \Theta(n^3)$
+	
+	\prend
+
+	\PR[7] На вход подается массив натуральных чисел $A=[a_1,a_2,\ldots,a_n]$, предложите эффективный алгоритм нахождения непрерывного подмассива $a_i, a_{i+1}, \dots, a_j$ с максимальным произведением количества элементов в подмассиве и минимума по подмассиву.
+    \newline
+    \\Заметим, что для минимального элемента массива выгоднее брать весь массив в качестве подмассива, так как $min(A)*length(A) > min(A) * k\ \forall\ k <= length(A)=n$, где min(A) - минимальный элемент массива A. Разбивать исходный массив на подмассивы можно только по тем элементам, в которых находится минимальный элемент, в противном случае для минимальных элементов подмассивов могут быть рассмотрены не самые большие длины подмассивов. Таким образом, предлагается изначально пройти два раза по исходному массиву, в первый раз найти минимальный элемент массива, во второй сформировать непрерывные подмассивы, полученные из исходного путем разбиения по минимальным элементам. Затем посчитать min(A) * length(A) и далее вызвать рекурсивно функцию от подмассивов. Получив ответ от рекурсивно вызванных функций, выдать в качестве ответа большее значение. Корректность следует из того, что мы для каждого минимального элемента выбираем подмассив максимальной длины.
+    \\ В худшем случае, минимальный элемент в массиве всего один, и тогда при рекурсивных вызовах надо будет выполнять c*(n-1) операций по алгоритму, описанному выше. Опять же, в худшем случае минимальный элемент в подмассиве может быть один, тогда на следующей итерации надо будет выполнить c*(n-2) операций и так далее. Высота дерева разбора будет не выше n. Она может достигаться, если массив отсортирован в обратном порядке, тогда алгоритм будет вызывать рекурсивно функцию от первых n-1 элементов, затем от n-2 и так далее.
+    \\ Таким образом, сложность алгоритма будет равна: $1+2+3+..+(n-1)+n=n*(n+1)/2 \to T(n) = O(n^2)$
+    \\ В лучшем случае массив может состоять из одинаковых элементов, тогда алгоритм сработает за $\Omega(n)$.
+
+
+\end{document}
+  

@@ -1,0 +1,331 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\PR}{ O{null} }{\setcounter{subproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem~{\sf(\bracketspace{#1})}.}}	
+
+
+
+\def\prend{
+	\medskip
+%	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: МетОпты 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 2}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\usepackage{enumitem}
+\usepackage[linesnumbered]{algorithm2e}   
+
+\newcommand{\comments}[2][Комментарий]{
+\medskip
+	\noindent{\bfseries #1: }{\textsl{#2}}
+%\medskip	
+}
+
+\def\ukaz{\noindent\textbf{Указание.} }
+
+\begin{document}
+	\PR[] Выпуклые функции
+    
+    \begin{enumerate} 
+        \item $f(x)=(\prod_{i=1}^{n}x_i)^{1/n}, x \in \mathbb{R}_+^n$
+        \newline
+        \\ Рассмотрим $f(\alpha x + (1-\alpha) y) = (\prod_{i=1}^{n}(\alpha x_i + (1-\alpha) y_i))^{1/n}$
+        \\ Докажем, что $(\prod_{i=1}^{n}(\alpha x_i + (1-\alpha) y_i))^{1/n} \geq \alpha (\prod_{i=1}^{n}(x_i))^{1/n} + (1-\alpha)(\prod_{i=1}^{n}(y_i))^{1/n}$.
+        \\ Возведем обе части в степень n. Слева будет $\prod_{i=1}^{n}(\alpha x_i + (1-\alpha) y_i)=\prod_{k+l=n}\alpha^k(1-\alpha)^lz_1z_2..z_n$, где k - количество элементов из x, l - из y, а $z_i$ - либо $x_i$ либо $y_i$. 
+        \\Справа же будет $\sum_{i=0}^n\alpha^{n-i}(1-\alpha)^iC_n^{n-i}(\prod_{i=1}^{n}(x_i))^{(n-i)/n}(\prod_{i=1}^{n}(y_i))^{i/n}$. 
+        \\Слева и справа будет одинаковое количество слагаемых, а именно $2^n$. Рассмотрим группу слагаемых справа $\alpha^{n-i}(1-\alpha)^iC_n^{n-i}(\prod_{i=1}^{n}(x_i))^{(n-i)/n}\prod_{i=1}^{n}(y_i))^{i/n}$. Таких групп всего будет n+1, как и различных биномиальных коэфициентов. Заметим, что у выражения слева есть $C_n^{n-i}=C_n^{i}$ различных слагаемых(каждый из которых имеет множитель $\alpha^{n-i}(1-\alpha)^i$), которые отобраны следующим образом: суммарно во всех слагаемых встречается $C_{n-1}^i$ элементов $x_i\ \forall i=1..n$ и $C_{n-1}^{i-1}$ элементов $y_j\ \forall j=1..n$. Такое количество слагаемых слева найдется, так как каждый элемент $x_i$ и $y_i$ встречается в половине слагаемых: $\sum_{i=0}^{n-1}C_{n-1}^i = 2^{n-1}$, как раз половина от количества слагаемых. Сумма этих $C_n^{n-i}$ слагаемых будет больше или равна $\alpha^{n-i}(1-\alpha)^i*C_n^{n-i}(\prod_{i=1}^{n}(x_i))^{C_{n-1}^i/C_n^{n-i}}\prod_{i=1}^{n}(y_i))^{C_{n-1}^{i-1}/C_n^{n-i}}=\alpha^{n-i}(1-\alpha)^i*C_n^{n-i}(\prod_{i=1}^{n}(x_i))^{(n-i)/n}\prod_{i=1}^{n}(y_i))^{i/n}$ по неравенству Коши. Это неравенство будет выполняться для всех i. Таким образом, выражение слева по неравенству Коши не меньше, чем выражение справа. 
+        \\$\prod_{i=1}^{n}(\alpha x_i + (1-\alpha) y_i) \geq (\alpha (\prod_{i=1}^{n}(x_i))^{1/n} + (1-\alpha)(\prod_{i=1}^{n}(y_i))^{1/n})^n$.
+        \\ Возьмем корень из обоих частей(так можно, так как обе части положительные), и получим что хотели доказать. Таким образом, функция $f(x)$ - вогнутая.
+        \item $f(x)=\|Ax-b\|_2 + \lambda\|x\|_1,\ \lambda>0$
+        \newline
+        \\Рассмотрим $f(\alpha x + (1-\alpha)y) = \|A(\alpha x + (1-\alpha)y)-b\|_2 + \lambda\|\alpha x + (1-\alpha)y\|_1$
+        \\$\|A(\alpha x + (1-\alpha)y)-b\|_2 = \|\alpha Ax + (1-\alpha)Ay-\alpha b - (1-\alpha)b\|_2 \leq \|\alpha Ax -\alpha b\|_2 + \|(1-\alpha)Ay- (1-\alpha)b\|_2 = \alpha\|Ax -b\|_2 + (1-\alpha)\|Ay-b\|_2$, в силу неравенства треугольника и что $\alpha \in [0..1]$
+        \\$\lambda\|\alpha x + (1-\alpha)y\|_1 \leq \lambda \alpha\|x\|_1 + \lambda (1-\alpha)\|y\|_1$, в силу неравенства треугольника и $\alpha \in [0..1]$
+        \\Таким образом имеем: $f(\alpha x + (1-\alpha)y) \leq \alpha\|Ax -b\|_2 + (1-\alpha)\|Ay-b\|_2 + \lambda \alpha\|x\|_1 + \lambda (1-\alpha)\|y\|_1 = \alpha f(x) + (1-\alpha)f(y)$
+        \\ Функция выпукла по определению.
+        \item $g(x)=\frac{1}{x}\int_0^xf(t)dt$, f(t) - выпуклая и дифференциируемая.
+        \\Сделаем замену в интеграле $t=\tau x$. Тогда функция g(x) примет вид: $g(x) = \frac{1}{x}\int_0^xf(t)dt = \frac{1}{x}\int_0^1f(\tau x)xd\tau = \int_0^1f(\tau x)d\tau$
+        \\$g(\alpha x + (1-\alpha)y) = \int_0^1f(\tau (\alpha x + (1-\alpha)y))d\tau \leq \int_0^1\alpha f(\tau x) + (1-\alpha)f(\tau y))d\tau = \alpha \int_0^1 f(\tau x)d\tau + (1-\alpha)\int_0^1(\tau y)d\tau = \alpha g(x) + (1-\alpha)g(y)$. Следовательно, функция выпуклая по определению.
+        \item $f(X) = \sum_{i=1}^{k}\lambda_i(X)$
+        \\ Так как у нас множество симметричных матриц, для них верно разложение $X = Q^T\lambda Q$, где Q - унитарная матрица, а $\Lambda$ - диагональная с собственными значениями на диагонали.
+        \\ Рассмотрим для Q только первые k столбцов, то есть k собственных векторов. $Q \in \mathbb{R}^{n*k}, Q^TQ = I$.
+        \\ $tr(Q^T\Lambda Q) = tr(\Lambda QQ^T) \leq \sqrt{tr(\Lambda \Lambda^T)tr((QQ^T)^2)} \leq \lambda(\Lambda) \lambda(QQ^T)$, где $\lambda(\Lambda)$ - вектор собственных значений матрицы. Так как $(QQ^T)^2 = QQ^T$, то собственные значения у данной матрицы либо 0, либо 1. Также заметим, что $tr(QQ^T) = tr(Q^TQ)=k$, так как это единичная матрица к на к. Значит $\lambda(QQ^T)$ имеет k единиц и остальные нули. Получаем в итоге $tr(Q^T\Lambda Q) \leq \sum_{i=1}^k \lambda_i(\Lambda)$, где последняя сумма - сумма k наибольших собственных значений. Равенство будет достигаться, если для формирования $Q$ будут взяты k собственных векторов, соответствующих k наибольшим значениям.
+        \\То есть имеем $\sum_{i=1}^k \lambda_i(\Lambda) = sup\{tr(Q^T\LambdaQ)|Q^TQ=I\})$. Супремум - выпуклая функция, значит и наша функция f(X) - выпуклая.
+        \item $f(w)=\sum_{i=1}^{m}log(1+e^{-y_iw^Tx_i})$
+        \\$f'(w) = \sum_{i=1}^{m}\frac{-y_ix_ie^{-y_iw^Tx_i}}{1+e^{-y_iw^Tx_i}}=\sum_{i=1}^{m}\frac{-y_ix_i}{1+e^{y_iw^Tx_i}}$
+        \\$f''(w) = \sum_{i=1}^{m}\frac{y_i^2e^{-y_iw^Tx_i}x_ix_i^T}{(1+e^{y_iw^Tx_i})^2}$
+        \\$f''(w) \succeq 0$, так как $\forall z \in \mathbb{R}^n: z^Tf''(w)z = z^T\sum_{i=1}^{m}\frac{y_i^2e^{-y_iw^Tx_i}x_ix_i^T}{(1+e^{y_iw^Tx_i})^2}z = \sum_{i=1}^{m}\frac{y_i^2e^{-y_iw^Tx_i}z^Tx_ix_i^Tz}{(1+e^{y_iw^Tx_i})^2} = \sum_{i=1}^{m}\frac{y_i^2e^{-y_iw^Tx_i}(x_i^Tz)^2}{(1+e^{y_iw^Tx_i})^2}$. Следовательно, эта функция выпукла по критерию второго порядка.
+        \item f(X) = $(det(X))^{1/n}, X \in S_{++}^n$
+        \\ Рассмотрим $g(t) = f(U+Vt),\ t\in R,\forall U,V:U+Vt\in dom(f)$. Эта функция выпукла тогда и только тогда, когда выпукла f(x). $g(t) = (det(U+Vt))^{1/n}\sim(det(I+U^{-1/2}VU^{-1/2}t))^{1/n}=(det(I+Wt))^{1/n}$. В силу того, что $W=U^{-1/2}VU^{-1/2}$ - симметричная мамтрица, то $W = Q\Lambda Q^T, Q$-унитарная.
+        \\Таким образом, $g(t) = (\prod_{i=1}^{n} 1+t\lambda_i)^{1/n}$
+        \\ Пусть $l,r \in R,\ \alpha \in [0..1]$. Тогда $g(\alpha l + (1-\alpha)r) = (\prod_{i=1}^{n} 1+(\alpha l + (1-\alpha)r)\lambda_i)^{1/n}$ $1 = \alpha + (1-\alpha) \to (\prod_{i=1}^{n} \alpha(1+l\lambda_i) + (1-\alpha)(1+r\lambda_i))^{1/n}$. Обозначим $(1+l\lambda_i) = x_i, (1+r\lambda_i) = y_i$. Из первого номера следует, что $(\prod_{i=1}^{n} \alpha(1+l\lambda_i) + (1-\alpha)(1+r\lambda_i))^{1/n} \geq \alpha (\prod_{i=1}^{n}(1+l\lambda_i))^{1/n} + (1-\alpha)(\prod_{i=1}^{n}(1+r\lambda_i))^{1/n} = \alpha g(l) + (1-\alpha)g(r)$. 
+        \\ Таким образом функция g(t) вогнута по определению, следовательно вогнута и f(X).
+        \item $f(X) = trace(X^{-1}), X \in S_{++}^n$
+        \\ След матрицы одинаков у подобных матриц. Положительно определенные матрицы подобны диагональным с положительными элементами на диагонали, а еще обратная к диагональной - диагональная с обратными элементами на диагонали. 
+        \\ Сделаем замену, $g(t) = f(U+Vt),\ t\in R,\forall U,V:U+Vt\in dom(f)$ U должна быть положительно определенной, иначе при t=0 аргумент не будет положительно определенной матрицей, а V - симметричной.
+        \\$g(t) = trace((U+Vt)^{-1}) = trace((I+U^{-1}Vt)^{-1}U^{-1})$
+        \\$(I+U^{-1}Vt)^{-1}U^{-1} = (I-tU^{-1}V+t^2(U^{-1}V)^2-t^3(U^{-1}V)^3+...)U^{-1}=U^{-1}-tU^{-1}VU^{-1}+t^2(U^{-1}V)^2U^{-1}$
+        \\ Рассмотрим вторую производную g(t):$g''(t) = 2trace((U^{-1}V)^2U^{-1} -6t(U^{-1}V)^3U^{-1}+...)$
+        \\ $g''(0) = 2trace(U^{-1}VU^{-1}VU^{-1})=2trace(CU^{-1}C^T), C=U^{-1}V$. Так как U - положительно определенная матрица, то и $CU^{-1}C^T$ положительно определенная, как подобная. Значит $2trace(CU^{-1}C^T) > 0$, и наша функция выпукла по критерию второго порядка.
+        \item $f(x,t)= -log(t^2-x^Tx), domf = \{(x,t) \in R^{n+1}\ |\ \|x\|_2 < t\}$
+    \end{enumerate}
+
+
+	\PR[] Выпуклость экспоненциального конуса
+	\\$K = \{(x,y,z) \in R^3\ |\ y > 0, ye^{x/y}\leq z \}$
+	\\Заметим, что множество K - это надграфик функции $ye^{x/y},y>0$. Таким образом, у нас K выпукло тогда и только тогда, когда выпукла функция $ye^{x/y}$. 
+	\\Рассмотрим функцию $e^x$. Она, очевидно, выпукла(достаточно посмотреть на вторую производную, которая неотрицательна). Тогда и функция $g(x,y) = yf(x/y) = ye^{x/y},y>0$ - выпукла. А отсюда следует и выпуклость ее надграфика, то есть конуса K.
+	\prend
+    
+    \PR[] Кратчайший путь в графе
+    Наша функция $p_{ij}(c)$ зависит от вектора весов. Она представляет собой сумму некоторых элементов этого вектора(сумма весов - длина пути). Если взять два различных вектора весов c и d, то для кратчайшего пути будут взяты элементы либо с одинаковыми индексами в этих двух случаях, либо с разными. Пусть C - множество индексов для вектора c, D - множество индексов для вектора d.(Любому пути от i до j можно поставить в соответствие множество индексов вектора M, которые включены в этот путь). Тогда $p_{ij}(c)=\sum_{k\in C}c_k, p_{ij}(d)=\sum_{k\in D}c_k$. Рассмотрим $p_{ij}(\alpha c + (1-\alpha)d)=\sum_{k\in J}\alpha c_k + (1-\alpha)d_k$, где J - некотрое множество индексов вектора весов $\alpha c + (1-\alpha)d$. Так как $\sum_{k\in C}c_k$ - оптимальный путь для вектора с, то $\sum_{k\in C}c_k \leq \sum_{k\in J}c_k$ для любого множества индексов J, которое определяет путь от i до j. 
+    \\Таким образом получаем, что $p_{ij}(\alpha c + (1-\alpha)d)=\sum_{k\in J}\alpha c_k + (1-\alpha)d_k = \sum_{k\in J}\alpha c_k + \sum_{k\in J}(1-\alpha)d_k = \alpha\sum_{k\in J}c_k + (1-\alpha)\sum_{k\in J}d_k \geq \alpha\sum_{k\in C}c_k + (1-\alpha)\sum_{k\in D}d_k = \alpha p_{ij}(c) + (1-\alpha)p_{ij}(d)$
+    \\ Таким образом, функция кратчайшего пути между двумя вершинами вогнута по определению. 
+    \prend
+    
+    \PR[] Расстояния между вероятностными распределениями
+    \begin{enumerate}
+    \item $D_{KL}(p\|q)=\sum_{i=1}^np_i log\frac{p_i}{q_i}$
+        \begin{enumerate}
+            \item Рассмотрим случай n=1. Тогда формула будет иметь вид $f(p_1,q_1) = D_{KL}(p\|q)=p_1log(p_1/q_1)$. Посчитаем у нее гессиан. $\frac{\partial^2 f}{\partial p_1^2} = 1/p_1, \frac{\partial^2 f}{\partial p_1 \partial q_1} = 1/p_1, \frac{\partial^2 f}{\partial q_1^2} = p_1/q_1^2$. Так как $p_1 > 0, q_1 >0$, то и $1/p_1, 1/q_1$ больше нуля. По критерию сильвестра, гессиан будет положительно полуопределенным, так как $1/p1 >0$ и определитель гессиана будет равен 0. Заметим, что гессиан всегда является матрицей с четным количеством строк, так переменных у KL дивергенции  всегда 2*n, где n - количество принимаемых значений случайной величиной. Мы доказали, что дивергенция выпукла для n=1. Пусть она выпукла и для n=k. Докажем индуктивно, что и для n=k+1 функция выпукла. Пусть переменные у дивергенции расположены следующим образом: $f(p_1,q_1,p_2,q_2,...,p_k,q_k,p_{k+1},q_{k+1})$. Значит, гессиан мы будем строить следующим образом, первые 2*k столбцов и строк отвечают за переменные $p_i,q_i, 1 \leq i \leq k$. То есть производные, связанные с $p_{k+1},q_{k+1}$ расположены в последних двух строках гессиана. Также заметим, что $\forall i \neq j: \frac{\partial^2 f}{\partial p_i \partial p_j} = 0, \frac{\partial^2 f}{\partial p_i \partial q_j} = 0,\frac{\partial^2 f}{\partial q_i \partial q_j} = 0$. Таким образом, наш гессиан будет выглядеть как блочно-диагональная матрица. По нашему предположению, главный минор нашего гессиана размером 2*k на 2*k неотрицателен, как гессиан от KL дивергенции с меньшим количеством переменных. Рассмотрим главный минор 2*k+1 на 2*k+1. У него в последней строке и столбце все нули, кроме последнего элемента, который равен $1/p_{k+1}$. Если разложить определитель этого минора по последней строке, то у нас получится $(-1)^{2*k+1 + 2*k + 1} * 1/p_{k+1}$ помноженное на определитель гессиана KL дивергенции размером 2*k на 2*k, то есть неотрицательное число. Если посмотреть на определитель нашего гессиана, то его определитель будет равен произведению определителя гессиана 2*k на 2*K на определитель гессиана 2*2, которые оба неотрицательны. Таким образом, по критерию сильвестра, гессиан 2(k+1) на 2(k+1) неотрицательно определен.
+            \\Таким образом, KL дивергенция выпукла по критерию второго порядка.
+            \item Докажем в обе стороны.
+            \\ Пусть $p = q$ почти всюду. Тогда $\frac{p_i}{q_i}\ \forall i$, и $log(\frac{p_i}{q_i})$ равен нулю. Таким образом и вся сумма равна нулю, и KL дивергенция тоже равна 0.
+            \\ Теперь, пусть KL дивергенция равна нулю. Тогда имеем $D_{KL}(p\|q)=0=\sum_{i=1}^np_i log\frac{p_i}{q_i} = \sum_{i=1}^n p_i*(-log\frac{q_i}{p_i})$. Функция -ln(x) - выпуклая, а еще сумма $p_i$ равна единице, поэтому применимо неравенство Йенсена: $\sum_{i=1}^n p_i*(-log\frac{q_i}{p_i}) \geq -log(\sum_{i=1}^n p_i*\frac{q_i}{p_i})=-log(1)=0$. Так как выходит, что $0 \geq 0$, то все неравенства обращаются в равенство. В доказательстве мы использовали неравенство Йенсена, которое обращается в равенство если функция линейна или все аргументы равны. У нас нелинейная функция, значит все дроби $p_i/q_i$ равны, причем равны 1, что следует из равенства $\sum_{i=1}^n p_i*\frac{q_i}{p_i} = 1$.
+            \\Получаем, что $p_i = q_i$ почти всюду.
+            \item Воспользуемся идеями из предыдущего пункта.
+            \\$D_{KL}(p\|q) = \sum_{i=1}^np_i log\frac{p_i}{q_i} = \sum_{i=1}^n p_i*(-log\frac{q_i}{p_i}) \geq -log(\sum_{i=1}^n p_i*\frac{q_i}{p_i})=-log(1)=0$
+            \\ Таким образом, $D_{KL}(p\|q) \geq 0$
+            \item Возьмем распределения $p_1=p_2=1/2, q_1=1/4,q_2=3/4$
+            \\ Посчитаем $D_{KL}(p\|q)=\frac{1}{2}log(\frac{1/2}{1/4})+\frac{1}{2}log(\frac{1/2}{3/4})=\frac{1}{2} log(4/3)$
+            \\ Посчитаем $D_{KL}(q\|p)=\frac{1}{4}log(\frac{1/4}{1/2})+\frac{3}{4}log(\frac{3/4}{1/2})=\frac{1}{4}log(27/16)$
+            \\Как мы видим, KL дивергенция несимметрична.
+        \end{enumerate}
+    \item $d(p,q)=\sum_{i=1}^n (\sqrt{p_i}-\sqrt{q_i})^2 = \sum_{i=1}^n p_i - \sqrt{p_iq_i}+q_i$
+    \\Проверим выпуклость по определению. Рассмотрим распределения (x,y) и (p,q).
+    \\$d(\alpha x + (1-\alpha)p, \alpha y + (1-\alpha)q) = \sum_{i=1}^n \alpha x_i + (1-\alpha)p_i - \sqrt{(\alpha x_i + (1-\alpha)p_i)(\alpha y_i + (1-\alpha)q_i)} + \alpha y_i + (1-\alpha)q_i$
+    \\ $(\alpha x_i + (1-\alpha)p_i)(\alpha y_i + (1-\alpha)q_i) = \alpha^2 x_i y_i + \alpha(1-\alpha)p_iy_i + \alpha(1-\alpha)x_iq_i + (1-\alpha)^2p_iq_i \geq \alpha^2x_iy_i + (1-\alpha)^2p_iq_i + 2\alpha(1-\alpha)\sqrt{p_iy_ix_iq_i} = (\alpha \sqrt{x_iy_i} + (1-\alpha)\sqrt{p_iq_i})^2$ из неравенства Коши.
+    \\ Поэтому будет выполняться $\alpha x_i + (1-\alpha)p_i - \sqrt{(\alpha x_i + (1-\alpha)p_i)(\alpha y_i + (1-\alpha)q_i)} + \alpha y_i + (1-\alpha)q_i \leq \alpha x_i + (1-\alpha)p_i  - \alpha \sqrt{x_iy_i} - (1-\alpha)\sqrt{p_iq_i} + \alpha y_i + (1-\alpha)q_i = \alpha(x_i - \sqrt{x_iy_i} + y_i) + (1-\alpha)(p_i - \sqrt{p_iq_i} + q_i)$
+    \\ Таким образом, выполняется $d(\alpha x + (1-\alpha)p, \alpha y + (1-\alpha)q) = \sum_{i=1}^n \alpha x_i + (1-\alpha)p_i - \sqrt{(\alpha x_i + (1-\alpha)p_i)(\alpha y_i + (1-\alpha)q_i)} + \alpha y_i + (1-\alpha)q_i \leq \sum_{i=1}^n\alpha(x_i - \sqrt{x_iy_i} + y_i) + (1-\alpha)(p_i - \sqrt{p_iq_i} + q_i) = \alpha d(x,y) + (1-\alpha)d(p,q)$
+    \\ Таким образом, расстояние Хеллингера выпукло по определению.
+    \end{enumerate}
+    \prend
+
+
+\end{document}
+  

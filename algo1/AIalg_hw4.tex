@@ -1,0 +1,280 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: Алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 4}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\usepackage{enumitem}
+
+\begin{document}
+	
+
+\Pr[2] Дан массив длины $n$, состоящий только из нулей и единиц. Предложите линейный алгоритм сортировки данного массива.
+\newline 
+\\ Заведем две переменные, одна будет содержать количество нулей, другая количество единиц. Пройдем массив и посчитаем сколько в массиве единиц и нулей(если встречаем единицу, увеличиваем счетчик единиц, также поступаем с нулями). После этого заполним массив следующим образом: запишем столько нулей, сколько показывает счетчик нулей, после этого запишем столько единиц, сколько и в счетчике единиц. 
+\\Корректность: массив состоит из нулей и единиц, поэтому отсортированный массив будет выглядеть следующим образом: в начале нули, потом единицы. Счетчиками мы считаем количество нулей и единиц, поэтому в итоге у нас массив идентичен отсортированному.
+\\Сложность: $\Theta(n)$, так как мы делаем два прохода, подсчет элементов и вставка.
+
+	\Pr[2] На прямой задано $n$ отрезков, причем известно, что они образуют систему строго вложенных отрезков (их можно упорядочить так, чтобы каждый строго содержался в следующем). Отрезки заданы координатами концов $[l_i, r_i]$ (и могут быть даны в неупорядоченном виде). Предложите асимптотически эффективный алгоритм (с точки зрения количества арифметических операций), который находит все точки прямой, которые покрыты ровно $2n/3$ отрезками.
+    \newline
+    \\ Рассмотрим систему вложенных отрезков: пусть самый широкий получит номер 1, второй по ширине - 2, следующий - 3, и так далее. Те точки, которые покрыты 2n/3 отрезками, находятся как раз в 2n/3 отрезке, но лежат вне 2n/3 + 1 отрезка. Таким образом, нам надо найти (2n/3 + 1)-ый и (2n/3)-ий отрезки. Будем использовать сравнение отрезков по первой координате, то есть по левому краю отрезка. Также заметим, что в упорядоченной системе отрезков первый отрезок имеет самую маленькую первую координату и самую большую вторую, второй отрезок вторую по минимуму первую координату и вторую по максимуму вторую и так далее. Таким образом, чтобы найти (2n/3 + 1)-ый отрезок, надо найти (2n/3 + 1) статистику по первой координате. Это можно сделать за O(n) операций. Далее, находим (2n/3) статистику, что тоже можно сделать за O(n). Итого, имеем два отрезка, $[l_{2n/3},r_{2n/3}]$ и $[l_{2n/3 + 1}, r_{2n/3 + 1}]$, причем второй из них вложен в первый. Точки, которые лежат ровно в 2n/3 отрезках, имеют координату либо в интервале $(l_{2n/3}, l_{2n/3 + 1})$, либо в $(r_{2n/3}, r_{2n/3 + 1})$. 
+    \\ Корректность. Если отсортируем отрезки по первой координате, то первым отрезком будет самый широкий, второй - второй по ширине и так далее. Точки, покрытые ровно 2n/3 отрезками, лежат между левыми или правыми концами 2n/3 и 2n/3 + 1 отрезков. Алгоритм как раз их и находит.
+    \\ Сложность - O(n), так как надо найти две k-ые статистики.
+
+
+	\Pr[3]  \prsub Оцените глубину стека (рекурсивных вызовов) при работе быстрой сортировки в худшем случае.
+    \newline
+    \\ Рассмотрим уже отсортированный массив. Сначала отработает алгоритм partition с последним элементом в качестве опорного. Так как наибольший элемент уже стоит на месте, ничего не поменяется, и функция рекурсивно вызовется от первых n-1 элементов. Таким образом глубина рекурсии будет n, так как при рекурсивном вызове длина передаваемого массива меньше на 1 чем у исходного.
+    \newline
+	\prsub Измените алгоритм быстрой сортировки так, чтобы глубина стека в худшем случае была $\Theta(\log n)$.
+	\newline
+	\\ Будем при каждом рекурсивном вызове сначала искать у массива медиану, то есть (n/2) статистику. Это можно сделать за O(n) операций. Далее вызовем функцию partition от массива, в качестве опорного элемента будем использовать (n/2) статистику. В итоге, у нас будет два массива, длиной до (n-1)/2. Затем от этих подмассивов вызываем рекурсивно функцию.
+	\\ Подсчитаем сложность: $T(n) = 2*T(n/2) + cn \to T(n) = \Theta(n\log(n))$ по основной теореме рекурсии. При каждом рекурсивном вызове длина массива уменьшается в два раза, поэтому глубина рекурсии будет иметь сложность $\Theta(\log(n))$
+	
+	\Pr[3] На вход задачи подаётся число $n$ и массив чисел $x_1, x_2, \ldots, x_{2n+1}$. Постройте линейный алгоритм, находящий число $s$, при котором достигается минимум суммы $$ \sum\limits_{i=1}^{2n+1}|x_i - s|. $$
+	\newline
+	\\ Стоит задача $\sum\limits_{i=1}^{2n+1}|x_i - s| \to min$. Как известно, такую сумму минимизирует медиана $x_i, i=1..n+1$. Таким образом, нужно лишь найти (n+1) статистику, так как она является медианой отрезка из 2n+1 элементов. Найти медиану можно за линию. Ответом будет $s=x_{(n+1)}$
+	
+	
+
+
+\Pr[5] На вход алгоритма подаётся  массив натуральных чисел $A$ и число $x$. Постройте алгоритм, работающий за $O(n\log n)$, который проверяет, есть ли в массиве $A$ два элемента, сумма которых равна $x$.
+\newline
+\\Во-первых, отсортируем массив A. Затем установим два указателя - $a_l, a_r$, один на конец массива, другой на начало. Будем смотреть на сумму чисел, на которые указывают указатели. Если $a_l + a_r > x$, то смещаем $a_r$ на элемент влево, если $a_l + a_r < x$, то смещаем $a_l$ на элемент вправо, если же сумма равна х, то мы нашли необходимые элементы. Если же получилось так, что два указателя совпадали в какой-то момент, то значит таких элементов в массиве нет.
+\\Корректность. Рассмотрим случай, когда в массиве есть такая пара элементов, что сумма их дает х. Пусть их места в отсортированном массиве будут $x_1$ и $x_2$, где $x_1 < x_2$. Наши указатели в самом начале имеют позиции $a_l \leq x_1$ и $a_r \geq x_2$. Наши указатели будут постепенно сдвигаться к центру отсортированного массива, и либо они повстречают два других элемента массива, которые в сумме дают х, и алгоритм прекратит свою работу, либо какой-то из указателей $a_l, a_r$ наткнется на позицию $x_1$ или $x_2$ соответсвенно. Если $a_l \to x_1$, то сумма $a_l + a_r$ будет не меньше чем x, так как $a_r$ указывает на не меньший элемент, чем на позиции $x_2$. И тогда $x_r$ будет сдвигаться до тех пор влево, пока не укажет на $x_2$ позицию. Либо наоборот, $a_r \to x_2$ и сумма $a_l+a_r \leq x$, тогда $a_l$ будет сдвигаться вправо до тех пор, пока не наткнется на $x_1$ элемент. 
+\\Если в массиве нет подходящей пары элементов, то сумма $a_l + a_r$ будет то больше, то меньше х, и в какой-то момент указатели совпадут, что остановит алгоритм.
+\\Сложность: мы сортируем масив за $O(n\log(n))$ и делаем один проход по нему за линию. Таким образом, сложность будет $O(n\log(n))$.
+
+\Pr[6] Дан массив из $n$ чисел. Нужно разбить этот массив на максимальное количество непрерывных подмассивов так, чтобы после сортировки элементов внутри каждого подмассива весь массив стал отсортированным. Предложите $O(n\log n)$ алгоритм для решения этой задачи.
+\newline
+\\ Сделаем копию массива A, затем отсортируем его. Мы получим индексы элементов массива А в отсортированном массиве. Затем делаем проход по изначальному массиву А и храним два числа - количество пройденных элементов и максимум по индексам пройденных элементов в отсортированном массиве. Если в какой-то момент они совпадают, допустим равны i, то первый подмассив у нас будет $A[0]-A[i]$, то есть мы нашли правый конец первого подмассива. Затем продолжим проход, продолжим подсчет пройденных элементов и максимума индексов в отсортированном массиве. Таким образом в конце мы найдем индексы $i_1, i_2, .., i_j$, которые и будут концами подмассивов(точнее, подмассивы будут $A[0:i_1],A[i_1+1:i_2],..,A[i_{j-1}+1:i_j]$). В массиве могут быть одинаковые элементы, а в отсортированном массиве у них будут разные индексы. Тогда самому левому из них в массиве А мы будем соотносить самый маленький индекс в отсортированном массиве среди одинаковых элементов, второму по положению - второй по минимальности индекс в отсортированном массиве и так далее.
+\\Корректность. Допустим, мы знаем уже разбиение на подмассивы. Заметим, что каждый элемент подмассива справа не меньше, чем элемент подмассива слева, а индекс в отсортированном массиве у каждого элемента в правом подмассиве больше, чем у каждого элемента в левом подмассиве. Данный алгоритм как раз находит конец текущего подмассива таким образом, что справа остаются элементы с большими индексами в отсортированном массиве, то есть элементы, больше всех, которые находятся левее конца найденного подмассива.
+\\Сложность: мы сортируем массив за $O(n\log(n))$, затем делаем проход по массиву за линейное время. Таким образом, сложность алгоритма - $O(n\log(n))$.
+
+
+\Pr[6] Массив $A=[a_1,a_2,\ldots,a_n]$ является перестановкой чисел от $1$ до $n$. На вход задачи подаётся массив $F=[f_1, f_2, \ldots, f_n]$, в котором $f_k$~"--- число элементов $a_j$, стоящих левее числа $k=a_i$ в массиве $A$ и таких, что $a_j > a_i$ ($j<i$). Постройте эффективный алгоритм, который восстанавливает массив $A$ по массиву~$F$.
+\newline
+\\Алгоритм будет следующим: проходим по массиву F и ищем для числа $i$ $f_i + 1$ свободное место в массиве. Для поиска будем использовать структуру бинарного дерева, которое построим до прохода по F. Каждый узел дерева, кроме корня, будет хранить количество свободных мест в опеределенном месте массива - узлы первого уровня будут хранить информацию о половинах массива, второго уровня - о четвертях массива, и так далее. Изначально у нас массив, который восстанавливаем, пустой, то есть n свободных мест. Cоздаем левый и правый узел от корня, в каждом храним число n/2. Затем от каждого из этих узлов создаем снова по 2 узла, в каждом хранится уже число n/4, продолжаем так до конца. В дереве будет по итогу n листьев, в каждом будет число 1. Более того, будем хранить в листах индексы массива - за какое место в массиве они отвечают. Чтобы построить такое дерево у нас уйдет O(2*n) операций, оно будет иметь глубину $\log(n)$. Поиск подходящего места будет происходить следующим образом: сначала мы в корне, сравниваем число i с числом в левом поддереве, назовем его k. Если i больше k, то ищем в правом поддереве i-k свободное место. Иначе спускаемся в левое поддерево. При посещении любого узла дерево, вычитаем из хранящегося там числа единицу, чтобы сохранить информацию о том, что на одно место становится меньше. При попадании в лист дерева, мы находим нужный нам номер в массиве. Поиск будет занимать $\log(n)$.
+\\Корректность: По сути F - массив инверсий. $f_1$ - количество инверсий для единицы. Так как единица - самое малое число, то единицу надо поставить на $f_1 + 1$ место, чтобы слева было $f_1$ чисел, больших 1. Докажем, что число k надо поставить на $f_k + 1$ свободное место. База индукции есть, число 1 мы ставим как уже было сказано. Пусть потом мы поставили еще k-1 элементов по порядку. Теперь надо поставить k+1-ый элемент. Слева от него должно находиться $f_{k+1}$ чисел, больших k+1. Мы разместили уже все числа, меньшие k+1, то есть остались только те, которые больше k+1 и само k+1. Таким образом, в текущем массиве надо оставить $f_{k+1}$ свободных мест, левее k+1. То есть k+1 надо поставить на $f_{k+1} + 1$ свободное место. Что и делается в алгоритме.
+\\Сложность: так как для каждого числа $i$ мы ищем свободное место за $\log(n)$, то сложность будет $n*O(\log(n)) = O(n*\log(n))$ 
+
+
+\end{document}
+  

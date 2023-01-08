@@ -1,0 +1,374 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\PR}{ O{null} }{\setcounter{subproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem~{\sf(\bracketspace{#1})}.}}	
+
+
+
+\def\prend{
+	\medskip
+%	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: МетОпты 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 4}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\usepackage{enumitem}
+\usepackage[linesnumbered]{algorithm2e}   
+
+\newcommand{\comments}[2][Комментарий]{
+\medskip
+	\noindent{\bfseries #1: }{\textsl{#2}}
+%\medskip	
+}
+
+\def\ukaz{\noindent\textbf{Указание.} }
+
+\begin{document}
+	\PR[] Условия оптимальности
+    \begin{enumerate} 
+        \item Построим лагранжиан:
+        \\$L(x,\mu) = c^Tx + \mu(x^TAx-1)$
+        \\ Составим условия ККТ для решения задачи:
+        \begin{enumerate}
+            \item $L_x^{'}=c+2\mu Ax=0$
+            \item $\mu(x^TAx-1)=0$
+            \item $\mu \geq 0$
+        \end{enumerate}
+        \\ Заметим, что $\mu \neq 0$, иначе из первого условия вытекает $c=0$, что противоречит условию.(минимизировать 0 не имеет смысла.)
+        \\Таким образом, должно выполняться равенство $x^TAx=1$. Выразим из первого условия $x=-\frac{1}{2\mu}A^{-1}c$. Подставим в полученное условие:
+        \\$\frac{1}{2\mu}c^TA^{-T}A\frac{1}{2\mu}A^{-1}c=\frac{1}{4\mu^2}c^TA^{-1}c=1$, $A=A^T$ из условия.
+        \\Таким образом, $\mu = \sqrt{c^TA^{-1}c}/2$ и $x^* = -\frac{A^{-1}c}{\sqrt{c^TA^{-1}c}}$.
+        \\ Минимум таким образом будет равен $c^T*x^*=-\frac{c^TA^{-1}c}{\sqrt{c^TA^{-1}c}}=-\sqrt{c^TA^{-1}c}$
+        \item Преобразуем сначала условие $Xz=y \to z^TXz=1$, так как $z^Ty=1$.
+        \\$L(x,\mu) = trace(X)-\log(\det X) + \mu(z^TXz-1)$
+        \\ Условия ККТ:
+        \begin{enumerate}
+            \item $L_x^{'}=I-X^{-1}+\mu zz^T=0$, так как $X \in S_{++}^n$
+            \item $z^TXz=1$
+        \end{enumerate}
+        \\Из первого уравнения следует $X = (I + \mu zz^T)^{-1}$. Подставим этот результат во второе: $z^T(I + \mu zz^T)^{-1}z=1=y^Tz \to (I + \mu zz^T)^{-1}z=y \to z = (I + \mu zz^T)y = y + \mu z \to z(1-\mu) = y \to 1 -\mu = y^Ty \to \mu = 1 - y^Ty$
+        \\ $X = (I+(1 - y^Ty)zz^T)^{-1}$
+        \\ Минимум будет $trace((I+(1 - y^Ty)zz^T)^{-1})-\log(\det (I+(1 - y^Ty)zz^T)^{-1})$
+        \item Поставим формально задачу:
+        \\$min\ (Ax)^TAx$, $x^T1=1$, $x \geq 0$, где A - матрица размером n*k, ее столбцы - вектора $a_i$. Мы минимизируем квадрат нормы вектора из выпуклой оболочки, так как минимум будет в той же точке, что и для минимума самой нормы вектора.
+        \\$L(x, \lambda, \mu)= (Ax)^TAx + \lambda(x^T1 - 1)-\mu^Tx$
+        \begin{enumerate}
+            \item $L_x^{'}=2A^TAx - \lambda1-\mu = 0$
+            \item $\mu \geq 0$
+            \item $\mu^Tx = 0$
+            \item $x^T1=1$
+            \item $x \geq 0$
+        \end{enumerate}
+        \\$\mu = 2A^TAx - \lambda1$ из первого условия.
+        \\$x^T\mu = 2x^TA^TAx - \lambda x^T1=2x^TA^TAx - \lambda=0 \to \lambda = 2x^TA^TAx$. Таким образом, $\mu = 2A^TAx - 2x^TA^TAx*1$
+        \\ Остается решить систему $2A^TAx - 2x^TA^TAx*1 \geq 0$, $x \geq 0$. Пусть ее решение - $x*$. Тогда минимум задачи будет $(Ax^*)^TAx^*$, а значит минимальная норма - $\sqrt{(Ax^*)^TAx^*}$
+        \item $L(x, \lambda, \mu) = -\sum_i^n \log(\alpha_i+x_i)+\lambda(1^Tx-1)-\mu^Tx$
+        \\ Функция является дважды дифференциируемой, значит мы можем попробовать найти L > 0, что функция будет L-гладкой.
+        \\ $L_{x_k}^{'} = -1/(\alpha_k+x_k)+\lambda-\mu_k$, $L_\lambda^{'} = 1^Tx - 1$, $L_{\mu_k}^{'} = -x_k$
+        \\ $L_{x_kx_k}^{''} =1/(\alpha_k+x_k)^2$, $L_{x_kx_i}^{''} =0$, $L_{\lambda \lambda}^{''} = 0$, $L_{\mu \mu}^{''} = 0$, $L_{x \lambda}^{''} = 1$, $L_{x \mu}^{''} = -I$, $L_{\lambda \mu}^{''} = 0$
+        \\ Гессиан выглядит как $L^{''} = \begin{pmatrix}
+        A & 1 & -I\\
+        1^T & 0 & 0^T\\
+        -I & 0 & 0
+        \end{pmatrix}$, где $A=diag(1/(\alpha_k+x_k)^2)$. Если мы будем искать собственные значения этого гессиана, то по формуле фробениуса $det(L^{''}-aI) = det(A-aI)det(-aI-\begin{pmatrix}
+        1^T\\
+        -I\end{pmatrix}A^{-1}\begin{pmatrix}
+        1 (-I) \end{pmatrix}) = 0$. Но у матрицы $det(\begin{pmatrix}
+        1^T\\
+        -I\end{pmatrix}A^{-1}\begin{pmatrix}
+        1 (-I) \end{pmatrix})$ определитель равен нулю, значит есть собственное значение равно нулю, значит и у исходной матрицы есть собственное значение равное нулю. Соотвественно L не сильно выпукла.
+        \\ Соответственно, у нас просто выпуклая функция, и если применить метод градиентного спуска, то по теореме скорость будет сублинейная.
+        \\ $(x_{k+1}, \lambda_{k+1}, \mu_{k+1})=(x_{k}, \lambda_{k}, \mu_{k})-\alpha (L_x^{'}(x_{k}, \lambda_{k}, \mu_{k}), 1^Tx_k - 1, -x_k)$, где $\alpha \leq 1/(max\_eigenvalue)$.
+        \item $L(x, \lambda, \mu) = \|x-y\|_2^2+\lambda(1^Tx-1)-\mu^Tx$
+        \\ Функция является дважды дифференциируемой, значит мы можем попробовать найти L > 0, что функция будет L-гладкой.
+        \\ $L_x^{'} = 2(x-y)+\lambda 1 - \mu$, $L_\lambda^{'} = 1^Tx - 1$, $L_\mu^{'} = -x$
+        \\ $L_{xx}^{''} = 2$, $L_{\lambda \lambda}^{''} = 0$, $L_{\mu \mu}^{''} = 0$, $L_{x \lambda}^{''} = 1$, $L_{x \mu}^{''} = -I$, $L_{\lambda \mu}^{''} = 0$
+        \\ Гессиан выглядит как $L^{''} = \begin{pmatrix}
+        2 & 1 & -I\\
+        1^T & 0 & 0^T\\
+        -I & 0 & 0
+        \end{pmatrix}$, размерности (2*n+1) на (2*n+1), где n - размерность x. Собственные значения этой матрицы будут такие: 0 порядка 1, 1 порядка n-1, -1 порядка n-1, $-\sqrt{n*(n+1)+1}+n$ и $\sqrt{n*(n+1)+1}+n$.
+        \\ $\|L^{''}\|_2 = \sqrt{n*(n+1)+1}+n$, поэтому можем взять $L = \sqrt{n*(n+1)+1}+n$. Так как у гессиана есть собственное значение 0, то функция не может быть сильно выпуклой.
+        \\ Рассмотрим какую-то начальную точку $x_0 \geq 0, 1^Tx_0=1, \lambda_0, \mu_0 \geq 0$ и итерационный процесс $(x_{k+1}, \lambda_{k+1}, \mu_{k+1})=(x_{k}, \lambda_{k}, \mu_{k})-\alpha (2(x_k - y) + \lambda_k 1 - \mu_k, 1^Tx_k - 1, -x_k)$ с $\alpha \leq 1/L = 1/(\sqrt{n*(n+1)+1}+n)$. По теореме о градиентом спуске $L_k-L^* \leq \frac{\|(x^*, \lambda^*, \mu^*)-(x_0,\lambda_0, \mu_0)\|_2^2}{2\alpha k} = O(1/k)$ - сублинейная скорость сходимости.
+    \end{enumerate}
+    \prend
+
+    \PR[] Двойственные задачи
+    \begin{enumerate}
+    \item $L(x, \lambda, \mu) = c^Tx + \sum_{i=1}^n\lambda_ix_i(1-x_i)+\mu^T(Ax-b)=c^Tx+\lambda^Tx-x^Tdiag(\lambda)x+\mu^T Ax-\mu^T b=(c+\lambda+ A^T\mu)^Tx-x^Tdiag(\lambda)x-\mu^T b$
+    \\ $g(\lambda, \mu) = inf_x((c+\lambda+ A^T\mu)^Tx-x^Tdiag(\lambda)x-\mu^T b)$
+    \\ Заметим, что $diag(\lambda) \succ 0$, иначе можно будет подобрать такой х, что $g \to \infty$.
+    \\ Рассмотрим $(c_i + \lambda_i+(A^T)_i\mu)x_i-\lambda_ix_i^2$, где $(A^T)_i$ - i-ая строка матрицы. Минимум данного выражения достигается в точке $x_i^*=(c_i + \lambda_i+(A^T)_i\mu)/(2\lambda_i)$, и минимум равен $(c_i + \lambda_i+(A^T)_i\mu)^2/(4\lambda_i)$
+    \\ Отсюда $g(\lambda, \mu)=1/4 *(c+\lambda+ A^T\mu)^Tdiag(\lambda)^{-1}(c+\lambda+ A^T\mu)-\mu^Tb$
+    \\ Таким образом, двойственная задача:
+    \\ $$max_{\lambda, \mu} 1/4 *(c+\lambda+ A^T\mu)^Tdiag(\lambda)^{-1}(c+\lambda+ A^T\mu)-\mu^Tb$$\\ s.t $\lambda > 0,\ \mu \geq 0$.
+    \\ Найдем двойственную задачу к задаче непрерывной релаксации:
+    \\ $L_1(x,\mu_1, \mu_2, \mu_3) = c^Tx - \mu_1^Tx+\mu_2^T(x-1)+\mu_3^T(Ax-b) = (c-\mu_1+\mu_2+A^T\mu_3)^Tx-\mu_2^T1-\mu_3^Tb$ - лагранжиан задачи непрерывной релаксации.
+    \\ $$max\ -\mu_2^T1-\mu_3^Tb$$ $$c-\mu_1+\mu_2+A^T\mu_3 = 0$$
+    \\ Вернемся к двойственной исходной задаче. Заметим, что $sup((c_i + \lambda_i+(A^T)_i\mu)^2/(4\lambda_i)) = c_i+(A^T)_i\mu$, если $c_i+(A^T)_i\mu \leq 0$, иначе 0.
+    \\ Отсюда, можно переписать задачу, как $$-\mu^Tb+\sum_{i=1}^n min(0, c_i+(A^T)_i\mu)$$ $$\mu \geq 0$$
+    \\ Видно, что данная задача эквивалентна двойственной задаче непрерывной релаксации, соответсвенно нижняя оценка будет такой же.
+    \newline
+    \\ Если посмотреть на исходную булеву задачу и на ее непрерывную релаксацию, то понятно, что задача непрерывной релаксации дает большее пространство поиска решений, так как допустимое множество исходной задачи - вершины булева куба, а у исходной релаксации - весь булев куб с внутренними точками. 
+    \\ Допустим, решение задачи непрерывной релаксации - вектор $x^* = (x_1^*, x_2^*, \ldots, x_n^*)$. Для всех элементов выполняется условие $0 \leq x_i^* \leq 1$. Вектор $x_^*$ можно дополнить до булевого вектора, добавив такой вектор $a$, что $x_i^*+a_i \in \{0,1\}$. Из предположения, что $x_^*$ - решение задачи непрерывной релаксации, следует $f(x^*) = min\ f(x) \leq f(x+a)$. Таким образом, оценка задачи непрерывной релаксации не больше, чем решение исходной булевой задачи.
+    \item Исходная задача эквивалентная следующей: $min\ t$ s.t. $a_ix+b_i \leq t$.
+    \\$c = (0,1)^T$, $y = (x,t)^T$, $A = 
+    \begin{pmatrix}
+    a_1^T -1\\
+    \ldots\\
+    a_m^T -1
+    \end{pmatrix}$, $b = (b1,b2, \ldots b_m)^T$
+    \\ Таким образом, можно сформулировать задачу как $min_y\ c^Ty$ s.t. $Ay \leq b$.
+    \\ $L(x, \mu) = c^Ty + \mu^T(Ay + b) = (c+A^T\mu)^Ty + \mu^Tb$. Так что, $g(\mu)= \mu^Tb$, если $c+A^T\mu = 0$, иначе $\infty$.
+    \\ Двойственная задача выглядит как $$max\ \mu^Tb$$ $$\mu \geq 0$$ $$c+A^T\mu = 0$$
+    \item 
+    $L(X, \mu) = -\log \det X +\sum_{i=1}^m \mu_i(a_i^TXa_i-1) = -\log \det X +\sum_{i=1}^m \mu_ia_i^TXa_i - \mu^T1$. Условие на ограничение можно заменить на $trace(a_ia_i^TX) \leq 1$, эти условия эквивалентны.
+    \\ $L_x^{'} = -X^{-1} + \sum_{i=1}^m \mu_i a_ia_i^T = 0 \to X = (\sum_{i=1}^m \mu_i a_ia_i^T)^{-1}$ - это значение минимизирует лагранжиан по первому условию оптимальности.(при условии, что $\sum_{i=1}^m \mu_i a_ia_i^T \succ 0$)
+    \\ Значит, $g(\mu) = \log \det (\sum_{i=1}^m \mu_i a_ia_i^T) + trace(\sum_{i=1}^m \mu_ia_ia_i^T(\sum_{i=1}^m \mu_i a_ia_i^T)^{-1}) - \mu^T1 = \log \det (\sum_{i=1}^m \mu_i a_ia_i^T)+n - \mu^T1$
+    \\ Двойственная задача будет выглядеть, как $$max \log \det (\sum_{i=1}^m \mu_i a_ia_i^T)+n - \mu^T1$$ $$\mu \geq 0$$ $$\sum_{i=1}^m \mu_i a_ia_i^T \succ 0$$
+    \item 
+    \begin{enumerate}
+        \item $L(x,\lambda) = -3x_1^2+x_2^2+2x_3^2+2(x_1+x_2+x_3)+\lambda(x_1^2+x_2^2+x_3^2-1)$
+        \\ Условия ККТ: 
+        \begin{enumerate}
+            \item $L_{x_1}^{'} = -6x_1+2+2\lambda x_1 = 0 \to x_1 = 1/(3-\lambda)$
+            \item $L_{x_2}^{'} = 2x_2+2+2\lambda x_2 = 0 \to x_2 = -1/(1+\lambda)$
+            \item $L_{x_3}^{'} = 4x_3+2+2\lambda x_3 = 0 \to x_3 = -1/(2+\lambda)$
+            \item $x_1^2+x_2^2+x_3^2 = 1$
+        \end{enumerate}
+        \\ Выразив $x_1,x_2,x_3$ через $\lambda$, подставим их в условие и получим уравнение. Решив систему, мы получим несколько точек: $\lambda_1 \approx -3,15$, $\lambda_2 \approx 0.22$, $\lambda_3 \approx 1.89$, $\lambda_4 \approx 4.03$.
+        \\ Но чтобы точка действительно была минимумом, необходимо, чтобы гессиан в этой точке был положительно определен. В нашем случае, гессиан будет диагональной матрицей, с элементами $-6+2\lambda$, $2+2\lambda$, $4+2\lambda$ на диагонали. Чтобы матрица была положительно опрееделенной, нам по критреию сильвестра, надо потребовать чтобы главные миноры были положительны, что эквивалентно в нашем случае положительности вторых производных. Таким образом, $\lambda > 3$, значит нам подходит одна точка с $\lambda \approx 4.03$.
+        \\ $x_1 \approx -0.97$, $x_2 \approx -0.199$, $x_3 \approx 0.166$. Минимум будет равен $\approx -5.4$
+        \item Если посмотреть на функцию, которую надо минимизировать, то она содержит как положительные, так и отрицательные квадраты. Квадратичная функция - выпукла, отрицательная к ней - нет, поэтому задача не является выпуклой.
+        \item $g(\lambda) = \inf (-3x_1^2+x_2^2+2x_3^2+2(x_1+x_2+x_3)+\lambda(x_1^2+x_2^2+x_3^2-1)) = \frac{-3}{(3-\lambda)^2} + \frac{1}{(1+\lambda)^2} + \frac{2}{(2+\lambda)^2}+2(\frac{1}{3-\lambda} - \frac{1}{1+\lambda} - \frac{1}{2+\lambda})+\lambda(\frac{1}{(3-\lambda)^2} + \frac{1}{(1+\lambda)^2} + \frac{1}{(2+\lambda)^2}) -\lambda = \frac{1}{3-\lambda}-\frac{1}{1+\lambda}-\frac{1}{2+\lambda}-\lambda$, $\lambda > 3$.
+        \\ Двойственной задачей будет $$max\ \frac{1}{3-\lambda}-\frac{1}{1+\lambda}-\frac{1}{2+\lambda}-\lambda$$ $$\lambda > 3$$
+        \\ Максимум будет достигаться в той же точке $\lambda \approx 4.03$, и значение совпадает с оценкой исходной задачи, так что да, строгая двойственность присутствует.
+    \end{enumerate}
+    \item Сделаем замену $u_i = A_ix+b_i$
+    \\ $L(x, \lambda_1,\lambda_2 \ldots \lambda_p) = 1/2 * \|x-x_0\|_2^2 + \sum_{i=1}^p\|u_i\|_2 + \sum_{i=1}^p\lambda_i^T(u_i - A_ix - b_i) = 1/2 * \|x-x_0\|_2^2 - \sum_{i=1}^p\lambda_i^TA_ix + \sum_{i=1}^p(\|u_i\|_2+\lambda_i^Tu_i) - \sum_{i=1}^p\lambda_i^Tb_i$
+    \\ Для каждого i верно, что $inf(\|u_i\|_2+\lambda_i^Tu_i) = 0$, если $\|\lambda_i\|_2 \leq 1$, иначе 0. Здесь применили свойство, что норма l2 сопряженнная сама к себе.
+    \\ Чтобы минимизировать по x, найдем градиент $(1/2 * \|x-x_0\|_2^2 - \sum_{i=1}^p\lambda_i^TA_ix)_x^{'}=x - x_0 - \sum_{i=1}^p A_i^T\lambda_i = 0 \to x = x_0 + \sum_{i=1}^p A_i^T\lambda_i$
+    \\ Отсюда следует, что $g(\lambda_1,\lambda_2 \ldots \lambda_p) = 1/2*\|\sum_{i=1}^p A_i^T\lambda_i\|_2^2 - \sum_{i=1}^p\lambda_i^TA_ix_0 - \|\sum_{i=1}^p A_i^T\lambda_i\|_2^2 - \sum_{i=1}^p\lambda_i^Tb_i = -1/2*\|\sum_{i=1}^p A_i^T\lambda_i\|_2^2 - \sum_{i=1}^p\lambda_i^T(A_ix_0+b_i)$
+    \\ Двойственная задача будет иметь вид: 
+    $$max\ -1/2*\|\sum_{i=1}^p A_i^T\lambda_i\|_2^2 - \sum_{i=1}^p\lambda_i^T(A_ix_0+b_i)$$ $$\|\lambda_i\|_2 \leq 1$$
+    \end{enumerate}
+    \prend
+
+
+\end{document}
+  

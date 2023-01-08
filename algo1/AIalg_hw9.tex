@@ -1,0 +1,317 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+\usepackage[linesnumbered]{algorithm2e}   
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{subrproblem}
+\newcounter{prvar}
+
+
+\def\pr{\medskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}}
+\def\pru{\medskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}}
+\def\prstar{\medskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+\def\prpfrom[#1]{\medskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prp{\medskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+
+\def\prpvar{\medskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+\def\prpv{\medskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prv{\medskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+
+\def\prpstar{\medskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prdag{\medskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\upr{\medskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\medskip\noindent\stepcounter{subproblem}\setcounter{subrproblem}{0}{\sf \thesubproblem .}\;}
+\def\prsubr{\medskip\noindent\stepcounter{subrproblem}{\bf \asbuk{subrproblem})}\;}
+\def\prsubstar{\medskip\noindent\stepcounter{subrproblem}{\rm $\thesubrproblem^*$\negthickspace.}\;}
+\def\prsubrstar{\medskip\noindent\stepcounter{subrproblem}{$\text{\bf \asbuk{subrproblem}}^*\text{\textbf{)}}\mathbf{}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+
+\DeclareDocumentCommand{\Prstar}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+		\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf$\mathbf{\theproblem^*}$
+		~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+		 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+\def\prskip{
+	\medskip
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: Алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 9}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+\usepackage{wrapfig}
+\def\bin{\mathrm{bin}}
+
+
+
+\begin{document}	
+	\Pr[3] В графе может быть несколько кратчайших путей между какими-то вершинами. Постройте линейный по времени алгоритм, находящий количество вершин, которые лежат хотя бы на одном кратчайшем пути из $s$ в $t$ в неориентированном графе с единичными весами на рёбрах.\newline
+	По сути у нас есть обычный неориентированный граф. Используем алгоритм обход в ширину графа, но немного модифицируем его. Будем хранить не только массив длин путей из вершины s, но и массив предков для каждой вершины, которые образуют кратчайший путь до нее от вершины s. Будем делать это следующим образом: на каждой итерации i мы доходим до i глубины. Проходим из каждой вершины во все смежные вершины,которые не были посещены. Если вдруг из текущей вершины мы имеем только смежную вершину, которую уже посетили, добавляем текущую вершину в качестве родительской у смежной к ней и прекращаем рассматривать другие смежные к ней. Таким образом каждая вершина будет родительской к какой-нибудь вершине большей глубины. Когда мы доходим до вершины t, нам надо будет рассмотреть всех ее предков, а также предков у предков и так далее.\
+	Корректность: если вершина есть в каком нибудь кратчайшем пути до вершины t, то она будет записана в предки какой-то вершины, которая есть в кратчайшем пути. А мы считываем всех предков. Поэтому не упустим ни одного.
+	Сложность: $O(V+E)$, так как мы каждой вершине записываем предков, и суммарное количество предков на глубине i - их не более чем 2 * количество вершин на i-1 глубине. Таким образом всего предков не больше чем 2*V. Поэтому вся сложность $O(V+E)$ - обход графа и обход предков. 
+	
+
+	\medskip
+	
+	\Pr[2+2+2] Рассмотрим следующую модификацию алгоритма Дейкстры. При инициализации, в очереди с приоритетами находится лишь вершина $s$. Вершина $v$ добавляется в очередь с приоритетами, если в результате релаксации~Relax$(u,v)$ расстояние до вершины $v$ изменилось, и при этом $v$ не была в этот момент в очереди. Остальные шаги алгоритма остались без изменений.
+
+	\prsub Докажите корректность модифицированного алгоритма.
+	\newline
+	Из услови понятно, что каждая вершина добавляется в очередь единожды, когда мы в процессе обхода графа в текущий момент находимся в смежной с ней вершине. Мы все также достаем из очереди вершину с наименьшим приоритетом, а это обеспечивает нам то, что для каждой вершины, которую мы достаем, мы нашли кратчаший путь от вершины s, длина котрого равна ее приоритету.Если проходит релаксация по вершину, которая уже в очереди, мы просто изменяем ее приоритет, и все. Таким образом, все инварианты алгоритма дейкстры сохраняются.
+
+	\prsub Докажите, что модифицированный алгоритм работает корректно даже в случае наличия рёбер отрицательного веса, но при отсутствии цикла отрицательного веса. Оцените время работы алгоритма на графах такого вида и сравните его со временем работы алгоритма Беллмана-Форда.
+	\newline
+	Если нет отрицательного цикла, значит ни одна вершина не будет добавлена в очередь дважды. Действительно, если мы во второй раз добавили элемент $x$ в очередь, значит мы из какой-то вершины $y$ снова пришли в эту вершину, и кратчайший путь до нее уменьшился, а значит у нас есть цикл, причем его длина отрицательна, так как $s+s' < s$, где $s$ - бывший кратчайший путь до $x$, а $s'$ -длина пути до $y$. Поэтому при наличии отрицательного цикла, все ломается. Отрицательные ребра сами же ничего не ломают, так как все инварианты сохраняются.
+	Сложность работы алгоритма будет $(V+E)\log V$, в то время как сложность Беллмана Форда равна $VE$.
+
+	\prsub Модифицируйте алгоритм так, чтобы он выдавал ошибку на графах с циклами отрицательного веса.
+	\prend
+	
+%	\Pr[2] Профессор О. П. Рометчивый предлагает следующий способ нахождения кратчайшего пути из $s$ в $t$ в данном ориентированном графе, содержащем рёбра отрицательного веса. Прибавим достаточно большую константу к весам всех рёбер и сделаем все веса положительными, после чего воспользуемся алгоритмом Дейкстры.
+
+
+%	Корректен ли такой подход? Если да, то докажите это, если нет "--- укажите контрпример. %[ДПВ 4.8]  
+	
+%	\prend	
+
+%	\Pr[3] Предложите $O(|V|+|E|)$ алгоритм поиска кратчайших расстояний от данной вершины $s$ до всех остальных в графе, в котором все веса ребер равны $0$ или $1$. Докажите его корректность и оцените асимптотику.
+
+%	\prend
+
+	\Pr[3] В орграфе есть ребра отрицательного веса, но нет циклов с отрицательным весом. Предложите алгоритм, который находит для данной вершины вершину, \textbf{от которой} она удалена на максимальное расстояние. Докажите его корректность и оцените асимптотику.
+    \newline
+    Обойдем за $O(E)$ все ребра, найдем минимальное. Добавим ко всем ребрам вес, равный модулю минимального числа. Таким образом у нас не будет отрицательных ребер. Затем сделаем обход графа в шширину согласно алгоритму Дейкстры. Найдем кратачший путь и количество вершин в нем.(найдем количество вершин в пути через массив предков). Затем вычтем из полученного пути модуль минимального числа помноженного на количество вершин в пути, получим кратчайший путь.
+    Сложность $O(V+E)\log V$ или $OV^2$ в зависимости от реализации. Корректность - очевидна.
+	\prend
+
+	\Pr[4] Независимое множество в неориентированном графе "--- это множество вершин попарно не соединенных ребрами. Предложите $O(|V|+|E|)$ алгоритм поиска максимального по размеру независимого множества в дереве.
+
+	\prend
+	
+\Pr[4] Облегчённым весом пути $p$ называется сумма весов рёбер $p$ кроме ребра максимального веса (при поездке между городами по сети платных дорог за проезд по одной дороге можно не платить). Постройте алгоритм, который получив на вход взвешенный ориентированный граф с положительными весами на рёбрах находит пути минимального облегчённого веса из $s$ до всех остальных вершин
+
+\prend
+
+\Pr[2] Как модифицировать алгоритм Флойда-Уоршелла, чтобы он находил не только длины кратчайших путей между всеми парами вершин, но и сами пути?
+
+\prend
+
+\Pr[2] Как используя выходные данные алгоритма Флойда-Уоршелла проверить, что в графе есть цикл отрицательного веса?
+\newline
+Так как алгоритм Флойда-Уоршелла закончил работу, то у нас должна быть матрица, которая содержит кратчайшие пути между каждыми вершинами. Запустим одну итерацию алгоритма Флойда-Уоршелла. Если никакой релаксации не произошло, то очевидно, цикла отрицательного веса в графе быть не может, так как иначе нашелся бы какой-нибудь более короткий путь в графе, а для этого нужен цикл отрицательной длины. Если же произошла, то значит обязан быть отрицательный цикл.
+
+\prend
+
+\Pr[1+3] В Главе 2 [ДПВ] (раздел 2.5) приведён алгоритм Штрассена для умножения матриц сложностью $O(n^{\log_2 7})$.
+
+\prsub Объясните почему с его помощью нельзя ускорить алгоритмы поиска транзитивного замыкания (поиска вершин, достижимых из каждой вершины) и поиска кратчайших путей, основанных на быстром возведении в степень до $O(n^{\log_2 7}\log n)$?
+
+\smallskip
+
+\noindent\textsl{Указание: булева алгебра $\{ \lor, \land\}$ и тропическая алгебра $\{\min, +\}$ не являются кольцами.} 
+
+\prend
+
+\prsub Постройте алгоритм, который на основе алгоритма Штрассена находит матрицу транзитивного замыкания ($a_{ij} = 1$ тогда и только тогда, когда $j$ достижима из $i$) оптимальнее, чем за $O(n^{3}\log n)$ и оцените его сложность.
+
+%\pr Постройте алгоритм, который находит транзитивное замыкание графа за $O(|V||E|)$.
+
+\prend   
+
+
+\prstar Дан орграф, ребра могут быть отрицательного веса, модуль весов ребер не превосходит $W$. Предложите $O(|V||E|(\log W + \log |V|))$ алгоритм нахождения простого цикла с минимальным средним весом. Докажите его корректность и оцените асимптотику.
+
+	
+%	\Pr[3+3] Допустим, что нам надо нужно найти кратчайшие расстояния от данной вершины в графе с весами рёбер в интервале $0, 1, \ldots, W $, где $W$ "--- сравнительно небольшое число. 
+
+%	\prsub Покажите, что тогда алгоритм Дейкстры можно модифицировать, получив время работы $O(W|V| + |E|)$.
+
+%	\prsub Постройте другой вариант алгоритма с асимптотической оценкой  $O((|V| + |E|)\log |W|)$.
+			
+\end{document}
+  

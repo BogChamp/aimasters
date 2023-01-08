@@ -1,0 +1,297 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\PR}{ O{null} }{\setcounter{subproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem~{\sf(\bracketspace{#1})}.}}	
+
+
+
+\def\prend{
+	\medskip
+%	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: МетОпты 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 1}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\usepackage{enumitem}
+\usepackage[linesnumbered]{algorithm2e}   
+
+\newcommand{\comments}[2][Комментарий]{
+\medskip
+	\noindent{\bfseries #1: }{\textsl{#2}}
+%\medskip	
+}
+
+\def\ukaz{\noindent\textbf{Указание.} }
+
+\begin{document}
+	\PR[] Выпуклые множества
+    
+    \begin{enumerate} 
+        \item Докажем равносильность, что оба случая следуют друг из друга. Пусть у нас есть некое выпуклое множество A. Рассмотрим его пересечение с прямой. Прямая является аффинным пространством. Следовательно, $\forall x_1, x_2 \in l: \alpha*x_1 + (1-\alpha)*x_2 \in l,\ \alpha \in [0,1]$, где l - прямая. Любой отрезок принадлежащей прямой является выпуклым множеством. Прямая l пересекается с выпуклым множеством по отрезку. Это легко доказать, так как допустив обратное, мы получим $\alpha*x_1 + (1-\alpha)*x_2 \notin A,\ \alpha \in [0,1]$ для некоторых $x_1, x_2 \in A$, что противоречит выпуклости A. Таким образом, пересечение некоторого выпуклого множества A и прямой l - выпуклое множество, а именно отрезок.
+        \newline
+        \\Теперь в другую сторону, пусть пересечение множества A с любой прямой - выпуклое множество. Прямую можно провести через любые две точки множества, и эти точки будут частью пересечения прямой и множества - выпуклого множества по условию. То есть будет выполняться $\forall x_1, x_2 \in A: \alpha*x_1 + (1-\alpha)*x_2 \in A \cap l \to \in A, \alpha \in [0,1]$. А это определение выпуклости, значит множество A выпукло.
+        \item  Нам дано множество C и известно, что матрица $A\succ0$. Чтобы показать, что С - выпукло, воспользуемся определением выпуклости: $\forall x, y \in C: \alpha*x + (1-\alpha)*y \in C,\ \alpha \in [0,1]$. 
+        \\ $(\alpha x + (1-\alpha)y)^TA(\alpha x + (1-\alpha)y)\alpha x + b^T(\alpha x + (1-\alpha)y) + c = \alpha^2x^TAx + \alpha(1-\alpha)y^TAx + \alpha(1-\alpha)x^TAy + (1-\alpha)^2y^TAy + \alpha b^Tx+(1-\alpha)b^Ty+c = \alpha^2x^TAx + \alpha(1-\alpha)y^TAx + \alpha(1-\alpha)x^TAy + (1-\alpha)^2y^TAy+\alpha^2b^Tx+\alpha(1-\alpha)b^Tx+(1-\alpha)^2b^Ty+\alpha(1-\alpha)b^Ty+\alpha^2c+2*\alpha(1-\alpha)c + (1-\alpha)^2c \leq \alpha(1-\alpha)y^TAx + \alpha(1-\alpha)x^TAy + \alpha(1-\alpha)b^Tx + \alpha(1-\alpha)b^Ty + 2*\alpha(1-\alpha)c$, так как $a*(z^TAz +b^Tz+c) \leq 0\ \forall z \in C,\ \forall a \geq 0$
+        \newline
+        \\ Справа в неравенстве у нас стоит выражение: $\alpha(1-\alpha)y^TAx + \alpha(1-\alpha)x^TAy + \alpha(1-\alpha)b^Tx + \alpha(1-\alpha)b^Ty + 2*\alpha(1-\alpha)c = \alpha(1-\alpha)(y^TAx+x^TAy+b^Tx+b^Ty+2*c)$. $\alpha(1-\alpha) \geq 0$, так что нужно рассмотреть выражение под скобками.
+        \\ Заметим, что $y^TAx+x^TAy = (x+y)^TA(x+y) - x^TAx - y^TAy$. И еще, из условия на множества, имеем $b^Tx \leq -x^TAx - c\ \forall x \in C$.
+        \\ Таким образом: $y^TAx+x^TAy+b^Tx+b^Ty+2*c \leq (x+y)^TA(x+y) - x^TAx - y^TAy - x^TAx - c - y^TAy - c + 2c = (x+y)^TA(x+y) - 2x^TAx - 2y^TAy$. По условию $A\succ0$, значит матрица может быть представлена в виде $A=L^TL$. Распишем оставшееся выражения через нормы:
+        \\ $(x+y)^TA(x+y) - 2x^TAx - 2y^TAy = \|L^T(x+y)\|^2 - 2\|L^Tx\|^2 - 2\|L^Ty\|^2 \leq (\|L^Tx\|+\|L^Ty\|)^2 - 2\|L^Tx\|^2 - 2\|L^Ty\|^2 = -(\|L^Tx\| - \|L^Ty\|)^2 \leq 0$
+        \\Таким образом наше изначальное выражение меньше или равно нуля и выполнилось $\alpha x + (1-\alpha)y \in C$ для любых элементов из С. Таким образом, множество С выпукло.
+        \item Матрицы X размера n*k, поэтому элементы данного множества это матрицы размера n*n с рангом не выше k. Коническая оболочка данного множества является выпуклым конусом, что легко проверить в лоб. $\gamma x + (1-\gamma)y = \sum_{i=1}^{n}\gamma\alpha_i x_i + \sum_{i=1}^{n}(1-\gamma)\beta_i x_i = \sum_{i=1}^{n} (\gamma\alpha_i + (1-\gamma)\beta_i)x_i, (\gamma\alpha_i + (1-\gamma)\beta_i) > 0 \to \gamma x + (1-\gamma)y \in$ коническая оболочка.
+        \item Докажем утверждение в обе стороны.
+        \\ Если два выпуклых замкнутых множества $C_1$ и $C_2$ совпадают, то их опорные функции очевидно тоже совападают, так как супремум $y^Tx$ будет достигаться на тех же элементах.
+        \\ В обратную сторону. Пусть совпадают опорные функции. Из определения опорной функции $s_{C_1}(y) \geq y^Tx\ \forall x \in C_1$. Таким образом, можно представить $C_1$ в виде $C_1 = \bigcap\limits_{y\in R^n}\{x \in R^n \| y^Tx < \sup_{x\in C1}y^Tx\}$. $C_2$ представимо в таком же виде ввиду совпадения опорных функций. Отсюда $C_1 = \bigcap\limits_{y\in R^n}\{x \in R^n \| y^Tx < \sup_{x\in C1}y^Tx = \sup_{x\in C2}y^Tx\}=C_2$. Таким образом, два множества совпадают.
+        \item Проверим выпуклость множества по определению. Пусть $\alpha \in [0,1],\ x,y\in C$, С - данное нам множество. 
+        \\$(\alpha x + (1-\alpha)y)^TA(\alpha x + (1-\alpha)y) = \|L^T(\alpha x + (1-\alpha)y\|^2$
+        \\Рассмотрим $\|L^T(\alpha x + (1-\alpha)y\|$. По условию $x^TAx = \|L^Tx\|^2  \leq (c^Tx)^2 \to \|L^Tx\| \leq (c^Tx)$. Это неравенство верно, так как по условию множество содержит только такие x, для которых верно $(c^Tx) \geq 0$.
+        \\Таким образом имеем $\|L^T(\alpha x + (1-\alpha)y\| \leq \|L^T\alpha x\| + \|L^T(1-\alpha)y\| = \alpha \|L^Tx\| + (1-\alpha)\|L^Ty\| \leq \alpha (c^Tx) + (1-\alpha)(c^Ty) = c^T(\alpha x + (1-\alpha)y) \to \|L^T(\alpha x + (1-\alpha)y\|^2 = (\alpha x + (1-\alpha)y)^TA(\alpha x + (1-\alpha)y \leq (c^T(\alpha x + (1-\alpha)y))^2$. $c^T(\alpha x + (1-\alpha)y = \alpha c^Tx + (1-\alpha)c^Tx \geq 0$ так как $\alpha \in [0,1]$ и $c^Tx \geq 0,\ c^Ty \geq 0$ в силу $x,y \in C$.
+        Выполняется условие на выпуклое множество, значит C - выпукло.
+    \end{enumerate}
+
+
+	\PR[] Двойственные конусы
+	    \begin{enumerate} 
+	        \item $K = \{(x,y,z) \in R^3\ |\ y > 0, ye^{x/y}\leq z \}$. Чтобы множество являлось конусом, нужно чтобы выполнялось $\forall \theta \geq 0\ \forall x \in K: \theta x \in K$.
+	        \\$\theta y > 0$ так как $\theta > 0, y > 0$, $\theta y e^{\theta x / \theta y} = \theta y e^{x/y} \leq \theta z$. Условие выполняется, значит К - конус.
+	        \\Покажем, что сопряженным конусом к множеству K будет множество $K^*=\{(x,y,z)\ |\ x \leq 0,  z\geq0, y \geq -x*ln(-x/z)+x\}$. Заметим, что z - положительно( из-за ограничения снизу)
+	        \\ Проверка для $b \in K^*$ выполняется напрямую, подстановкой в лоб. $a_x*b_x+a_y*b_y+a_z*b_z \geq a_y(a_x/a_y * b_x + b_y + b_z*e^{a_x/a_y}) \geq a_y(a_x/a_y * b_x -b_x*ln(-b_x/b_z)+b_x + b_z*e^{a_x/a_y})$. Если рассмотреть выражение $a_x/a_y * b_x +  b_z*e^{a_x/a_y}$ как функцию от $a_x/a_y$, то можно найти ее минимум, который будет равен $b_x*ln(-b_x/b_z)-b_x$. Тогда выражение будет не меньше нуля в целом, так как под скобкой будет неотрицательное число.
+	        \\
+	        \\Пусть $b \notin K^*$. Тогда у него либо $b_x > 0$ , либо $b_z < 0$, либо $b_y < -b_x*ln(-b_x/b_z)+b_x$. Если $b_z < 0 \to \exists a \in K: a_x*b_x+a_y*b_y+a_z*b_z < 0$, так как можно подобрать всегда настолько большое $a_z$ > 0, что $a_z*b_z << 0$, и скалярное произведение будет меньше нуля. Рассмотрим случай $b_x > 0$ : $a_x*b_x+a_y*b_y+a_z*b_z = a_y(a_x/a_y * b_x + b_y +a_z/a_y *b_z) \leq a_y(ln(a_z/a_y) * b_x + b_y +a_z/a_y *b_z)$. Устремим $a_y \to \inf$ и $a_x \to -\inf$. Сделаем это так, чтобы $a_ye^{a_x/a_y}$ стремилось к нулю, чтобы можно было взять $a_z$ сколь угодно малым. Наше выражение уйдет в минус бесконечность из-за логарифма и положительного множителя, $b_x$, $a_z/a_y *b_z$ уйдет в 0. Значит $b_x \leq 0$
+	        \\Пусть $b_y < -b_x*ln(-b_x/b_z)+b_x$. Рассмотрим $a_x*b_x+a_y*b_y+a_z*b_z = a_y(a_x/a_y * b_x + b_y + b_z*e^{a_x/a_y}) < a_y(a_x/a_y * b_x -b_x*ln(-b_x/b_z)+b_x + b_z*e^{a_x/a_y}) = 0$ для некоторых $a_x/a_y$. Равенство в начале берется из того факта, что $z=e^{x/y}$ тоже входит в множество. И таким образом скалярное произведение меньше нуля.
+	        \\ Следовательно, $K^*$ - двойственный конус.
+	        \item $C = \{X\in R^{n*n}\ |\ y^TXy \geq 0,\ X=X^T\ \forall y \geq 0\}$
+	        \\ Докажем, что данное множество - выпуклый замкнутый конус. Рассмотрим некоторые элементы $X, Y \in C$ домноженные на $\theta_1, \theta_2 \geq 0$: $(\theta_1 X+\theta_2 Y)^T = (\theta_1 X)^T + (\theta_2 Y)^T= \theta_1 X^T + \theta_2 Y^T = \theta_1 X + \theta_2 Y.$ $y^T(\theta_1 X + \theta_2 Y)y = y^T\theta_1Xy + y^T\theta_2Yy = \theta_1 y^TXy + \theta_2y^TYy \geq 0\ \forall y \geq 0$, так как $y^TXy, y^TYy \geq 0\ \forall y \geq 0$. Значит, $\theta_1 X + \theta_2 Y\in C$. Таким образом, это множество - выпуклый конус. Пусть множество не замкнуто - есть предельная точка. Возьмем сферу с центром в этой точке, и устремим радиус к нулю. У нас будет последовательность радиусов $r_n \to 0$, в каждой окрестности есть хотя бы один элемент, значит будет существовать последовательность $X_n$, сходящаяся к предельной точке. В силу непрерывности $R^{n*n}$ предельная точка будет принадлежать множеству, значит множество замкнуто.
+	        \\Найдем двойственный конус. Точнее докажем, что этот конус - самодвойственный. 
+	        \\Итак, если $Y \in C$, то мы можем рассмотреть ее жорданово разложение $Y = Q\Lambda Q^T$, где $\Lambda$ - диагональная матрица в силу симметричности Y. По другому можно записать: $Y = \sum_{i=1}^{n}\lambda_iq_iq_i^T, где \lambda_i \geq 0$ в силу положительной полуопределенности, а $q_i$ - собственный вектор матрицы Y. Посмотрим на скалярное произведение Y и $X \in C$: $tr(\sum_{i=1}^{n}\lambda_i q_iq_i^T X) = \sum_{i=1}^{n}\lambda_i tr(q_iq_i^TX) = \sum_{i=1}^{n}\lambda_i tr(q_i^TXq_i)=\sum_{i=1}^{n}\lambda_i q_i^TXq_i  \geq 0$, так как $ \lambda_i \geq 0, q_i^TXq_i \geq 0$.
+	        \\В противном случае, если $Y \notin C$, имеем:
+	        \\ $\exists p \geq 0 \in R^n: p^TYp < 0 \to tr(p^TYp) < 0 \to tr(Ypp^T) < 0 \to tr(YX) < 0.$ Скалярное произведение для элемента вне C отрицательно.
+	        \\ Таким образом, это множество самосопряженное.
+	        \item $C = \{x \in R^n\ |\ x_1\geq x_2 \geq x_3 \geq .. \geq x_n \geq 0\}$. Докажем, что множество - выпуклый конус: Рассмотрим $\theta_1 x + \theta_2 y$, где $\theta_1, \theta_2 \geq 0,$ $x,y \in C$. $\theta_1 x + \theta_2 y = (\theta_1 x_1 + \theta_2 y_1, \theta_1 x_2 + \theta_2 y_2, ..., \theta_1 x_n + \theta_2 y_n)$. $\forall i: \theta_1 x_i + \theta_2 y_i \geq \theta_1 x_{i+1} + \theta_2 y_{i+1} \geq \theta_1 x_{n} + \theta_2 y_{n} \geq 0 $. Условие выполняется, значит элемент принадлежит множеству. Значит это множество выпуклый конус.
+	        \\Двойственным конусом к данному конусу является множеством $C^* = \{x\ |\ \forall i \in [1..n]: \sum_{j=1}^{i} x_j\geq 0\}$. Докажем это. 
+	        \\ Пусть $y \in C^*, x \in C$. Тогда $y_1*x_1 \geq 0$, так как оба множителя не меньше 0, $y_1*x_1 + y_2*x_2 \geq y_1*x_2 + y_2*x_2 = (y_1 + y_2)*x_2 \geq 0$ так как $x_1 \geq x_2 \geq 0, y_1 \geq 0, y_1+y_2 \geq 0$. Продолжая, получаем $y^Tx \geq x_n*\sum_{i=1}^{n}y_i \geq 0$. 
+	        \\ В обратную сторону, пусть $y \notin C^*$. Тогда $\exists i: 1 \leq i \leq n: \sum_{j=1}^{i} y_j < 0$. В множестве С найдется x такой, что $x_1=x_2=...=x_i=1, x_{i+1}=...=x_n=0$. $y^Tx = \sum_{j=1}^{n}x_jy_j=\sum_{j=1}^{i}y_j<0$. Скалярное произведение меньше нуля.
+	        \\Таким образом, доказано, что $C^*$ - это двойственный конус.
+	        \item Пусть $K = K_1 \cap K_2 = \{0\}$. Как известно(из лекций), $K^* = (K_1 \cap K_2)^*= K_{1}^* + K_{2}^* = \{0\}* = R^n$ - все множество, так как $\forall x \in R^n: x^T0 = 0 \geq 0$. Так как нулевой вектор принадлежит $R^n$, то $\exists x \in K_{1}^*, y \in K_{2}^*: x + y = 0 \to x = -y \to \exists -y \in K_{1}^*, y \in K_{2}^*$, что и требовалось доказать.
+	    \end{enumerate}
+	\prend
+
+
+
+\end{document}
+  

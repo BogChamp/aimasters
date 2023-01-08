@@ -1,0 +1,292 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+\usepackage[linesnumbered]{algorithm2e}   
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{subrproblem}
+\newcounter{prvar}
+
+
+\def\pr{\medskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}}
+\def\pru{\medskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}}
+\def\prstar{\medskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+\def\prpfrom[#1]{\medskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prp{\medskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+
+\def\prpvar{\medskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+\def\prpv{\medskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prv{\medskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+
+\def\prpstar{\medskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\prdag{\medskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0} }
+\def\upr{\medskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}\;}
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\medskip\noindent\stepcounter{subproblem}\setcounter{subrproblem}{0}{\sf \thesubproblem .}\;}
+\def\prsubr{\medskip\noindent\stepcounter{subrproblem}{\bf \asbuk{subrproblem})}\;}
+\def\prsubstar{\medskip\noindent\stepcounter{subrproblem}{\rm $\thesubrproblem^*$\negthickspace.}\;}
+\def\prsubrstar{\medskip\noindent\stepcounter{subrproblem}{$\text{\bf \asbuk{subrproblem}}^*\text{\textbf{)}}\mathbf{}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+
+\DeclareDocumentCommand{\Prstar}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+		\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf$\mathbf{\theproblem^*}$
+		~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+		 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}\setcounter{subrproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+\def\prskip{
+	\medskip
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: Алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 10}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+\usepackage{wrapfig}
+\def\bin{\mathrm{bin}}
+
+
+
+\begin{document}	
+	\Pr[2] В ориентированном взвешенном графе есть ровно одно ребро ($u \to v$) с отрицательным весом. Описать эффективный алгоритм поиска кратчайшего пути между заданной парой вершин $(a,b)$ "--- вход задачи: матрица весов и вершины $a$ и $b$.
+    \newline
+    Так как в графе есть отрицательное ребро, алгоритм Дейкстры не подходит. Будем считать, что в графе нет циклов отрицательного веса, которые могут быть из-за отрицательного ребра. Иначе кратчайший путь может равняться минус бесконечности.
+    Остается использовать алгоритм Беллмана-Форда. У нас есть матрица весов, ищем кратчайшие пути от вершины $a$ до всех других вершин. Делаем это за $O(|V||E|)$. И находим таким образом кратчайшее расстояние до вершины $b$. 
+
+    Корректность вытекает из корректности алгоритма Беллмана-Форда. Сложность - $O(|V||E|)$
+		
+	\Pr[3] Дан неориентированный граф $G = (V,E)$, веса рёбер которого не обязательно различны. Для каждого из утверждений ниже приведите доказательство, если оно истинно, или постройте контрпример, если оно ложно:
+
+%	\prsubr Если к каждому ребру графа прибавить вес $w$, то каждое минимальное остовное дерево $G$ перейдёт в минимальное остовное дерево модифицированного графа.
+
+	\prsubr Если самое лёгкое ребро графа $G$ уникально, то оно входит в любое минимальное остовное дерево.
+    \newline 
+    Рассмотрим минимальное остовное дерево графа. Пусть самое легкое ребро не лежит в нем.
+    Рассмотрим разрез минимального остовного дерева, две компоненты которого соединяют какое-то ребро из этого дерева и ребро минимального веса в графе. Удалим это ребро из минимального остовного дерева, добавим ребро минимального веса. У нас получится снова остовное дерево. Причем его вес будет меньше, так как ребро минимального веса уникально, поэтому вес остальных ребер больше. А значит, мы получили остовное дерево, вес которого меньше минимального, противоречие.
+
+    Да, если самое легкое ребро уникально, оно входит в любое минимальное остовное дерево.
+
+	\prsubr Если ребро $e$ входит в некоторое минимальное остовное дерево, то оно является самым лёгким ребром из пересекающих некоторый разрез.
+    \newline
+    Как в предыдущем пункте, рассмотрим разрез, в котором две компоненты связывает ребро, которое входит в минимальное остовное дерево(назовем его $u$), и некоторые другие. Если мы возьмем другое ребро графа $v$, то остовное дерево, которое получается удалением из минимального остовного ребра $u$ и добавлением $v$, будет весить не меньше, чем минимальное(ну потому что минимальное не большего веса, чем другие). А значит, вес ребра $v$ не меньше, чем вес ребра $u$. Поэтому $u$ ребро наименьшего веса в некотором разрезе.
+
+	\prsubr Кратчайший путь между двумя вершинами является частью некоторого минимального остовного дерева.
+    \newline
+    Рассмотрим квадратный граф $a-(1)-b$, $b-(2)-c$, $c-(3)-d$, $d-(4)-a$. Кратчайший путь между $d$ и $a$ это ребро между ними, веса 4. Но минимальное остовное дерево графа это $a-(1)-b,b-(2)-c, c-(3)-d$. Оно не содержит кратчайшего пути между $d$ и $a$. Так что утверждение ложно.
+
+	\prend  
+	
+	\noindent{\textbf{Опредедение.}} Граф, который получается из графа $G$ удалением некоторых вершин и рёбер, называют \emph{(рёберным) подграфом} графа~$G$. В случае, если при изготовлении подграфа, рёбра удалялись только вместе с удалением вершин, подграф называют \emph{индуцированным}.
+	
+	\medskip
+
+	\Pr[4] Пусть $T$ "--- минимальное остовное дерево графа $G$, а $H$ "--- связный подграф $G$. Покажите, что рёбра, входящие как в $T$, так и в $H$, входят в некоторое минимальное остовное дерево графа~$H$.
+    \newline
+    У нас было минимальное остовное дерево $T$. После того, как мы получили связный подграф $H$ удалением ребер и вершин из исходного, мы получили подграф минимального остовного дерева $T$ - $T'$. Он был получен удалением тех ребер и вершин $T$, которые отсутствуют в $H$. Каждое ребро $T'$ - минимально по весу в некотором разрезе графа. Посмотрим на некоторое ребро $u$ подграфа $T'$. Оно минимального веса в некотором разрезе. Плюс оно осталось в подграфе после удаления ребер и вершин и от этого не перестала быть минимального веса в этом же разрезе. Поэтому, если мы возьмем некоторое остовное дерево графа $H$, которое не включает $u$, то мы сможем построить остовное дерево меньшего веса, рассмотрев разрез, в котором ребро $u$ соединяет компоненты, удалив ребро из остовного дерева графа $H$ и добавиви вместо него $u$. Поэтому каждое ребро $u$ графа $T'=(T \cap H)$ входит в минимальное остовное дерево графа $H$.
+      
+	\prend  
+
+
+	\Pr[3] Рассмотрим алгоритм Union-Find без улучшения со сжатием путей\footnote{В этом улучшении при вызове $\mathrm{Find}(x)$ все предки $x$ вместе с $x$ становятся детьми корня.}. Приведите последовательность из $m$ операций Union и Find над множеством из $n$ элементов, которая потребует времени $\Omega(m\log n)$.
+
+	\prend  
+
+
+	\Pr[4] На вход задачи подаётся неориентированный взвешенный граф $G(V,E)$ и подмножество вершин $U \subseteq V$. Необходимо построить остовное дерево, минимальное (по весу) среди деревьев, в которых все вершины $U$ являются листьями (но могут быть и другие листья) или обнаружить, что таких остовных деревьев нет. Постройте алгоритм, который решает задачу за $O(|E|\log |V|)$. Обратите внимание, что искомое дерево может не быть минимальным остовным деревом.
+    \newline
+    Будем использовать систему непересекающихся множеств, предложенную на лекции. Возьмем список ребер графа, сделаем по нему проход. В процессе прохода будем совершать следующие действия. Рассматривая очередное ребро, будем смотреть, является ли оно инцидентным к одной вершине из множества $U$. В случае, если да, и до этого мы не находили ребра, инцидентного этой вершине, мы делаем объединение в системе непересекающихся множеств (объединяем множество этой вершины из $U$ с другой вершиной). Иначе мы пропускаем данное ребро, и идем дальше. Если ребро инцидентно двум вершинам из $U$, мы проходим дальше. Если ребро не инцидентно вершинам из $U$, то процедура стандартна. Если оно не образует цикла, при добавлении его к уже выбранным ребрам, мы его добавляем, иначе нет. Алгоритм заканчивает работу, когда пройдет все ребра. Если по итогу мы смогли построить остовное дерево, то есть осталось одно непересекающееся множество, то нужное остовное дерево есть, иначе его нет.\\
+    Корректность. Алгоритм работает таким образом, что каждая вершина из $U$ добавляется в остовное дерево только по одному ребру, то есть все такие вершины будут только листьями в построенном остовном дереве, если такое конечно существует. Если такого остовного дерева нет, то какая-то вершина из $U$ должна входить в остовное дерево графа, будучи инцидентной двум ребрам, то есть не являясь листом. В таком случае алгоритм не сможет построить остовное дерево, что будет правдой.\\
+    Сложность. В начале алгоритма построим сбалансированое дерево на вершинах $U$, чтобы было легче поверять принадлежность этому множеству. Построить дерево сможем за $|U|\log(|U|)$. В процессе обхода дерева на каждом ребре мы проверяем, принадлежат ли вершины ребра множеству $U$, что можно сделать за $2\log(|U|)$. Затем мы делаем проверку на совпадение непересекающихся множеств и объединение за $O(\log(V))$. Таким образом финальная сложность $O(|U|\log(|U|) + |E|(2\log(|U|) + \log(|V|))) = O(|U|\log(|U|) + 2|E|\log(|U|) + |E|\log(|V|))$. Так как граф связный, то $|E| \geq |V| - 1$, а еще $U \subseteq V$, то есть $|U| \leq |V|$, то финальная сложность $O(|E|\log(|V|))$.
+	
+	\Pr[4]  Два сотовых оператора устанавливают оборудование в новом городе. Для работы связи необходимо соединить вышки в общую сеть так, чтобы сигнал мог пройти по проводам от любой вышки до любой другой. Помимо вышек каждого оператора, есть общегородские вышки, которые уже образуют общегородскую сеть. Каждый оператор может соединять проводами только свои вышки (быть может вместе с общегородскими). Также каждый оператор хочет быть независимым: работа сети не должна пострадать в случае, если выйдут из строя все вышки другого оператора. Соединение пары вышек $(i,j)$ стоит $c_{i,j}=c_{j,i}$. Постройте эффективный алгоритм, который находит минимальное нужное число соединений минимальной стоимости.
+    \newline
+    Переформулируем задачу. Пусть у нас есть оператор, которому нужно соединить вышки. Мы не должны соединять наши вышки с вышками других операторов, так как может быть выход из строя чужих вышек. Таким образом рассматриваем только вышки свои и общегородские. Схлопнем все общегородские вышки в одну. Определим стоимость соединения любой нашей вышки со схлопнутой как минимальная стоимость объединения этой нашей вышки с какой-то из общегородских вышек. Найти такую стоимость для каждой нашей вышки можно за $O(|U|)$, где $U$ - множество общегородских вышек. Таким образом, поиск всех таких растояний займет $O(|V||U|)$, где $V$ - множество вышек оператора. После этого можно рассмотреть наши вышки и схлопнутую вышку из общегородских, как неориентированный граф, веса которого даны, $c_{i,j}$. Чтобы построить связную сеть, нам надо построить минимальное остовное дерево. Таким образом из любой нашей вышки будет путь в другую. Это можно сделать за $|E|\log(|V|)$ с помощью алгоритма Крускала, где $E$ - множество ребер нашего графа.\\
+    Корректность - минимальное остовное дерево имеет минимальный вес(стоимость), и оно является связным графом. Плюс схлопывание общегородских вышек в одну и нахождение минимальной стоимости соединений каждой вышки оператора с общегородскими не нарушает нахождение минимального остовного дерева, так как мы находим соединения минимальной стоимости. Поэтому по итогу алгоритм находит нужные соединения минимальной суммы.\\
+    Сложность. Поиск минимального соединения каждой вышки оператора с общегородскими стоит $O(|V||U|)$, так как поиск минимума в массиве длины $|U|$ стоить $O(|U|)$. Затем, алгоритм Крускала работает за $O(|E|\log(|V|))$, так как в графе со схлопнутой вышкой $|V|+1$ вершина. Более того, мы рассматриваем полный граф на $|V|+1$ вершинах, так как знаем стоимость соединения между всеми вершинами и хотим выбрать из них лучшие. Таким образом, итоговая сложность: $O(|V||U| + |V|^2\log(|V|))$. Если например взять $G = U \cup V$-объединение вышек оператора и общегородских, то можно записать сложность как $O(|G|^2\log(|G|))$.
+	
+	\Pr[6] Курьеру Ozon требуется построить эффективный маршрут, начинающийся на складе, посещающий всех клиентов из списка, и возвращающийся на склад. Программист Ozon знает, что эта задача непростая (она NP-полна), но он сообразил как построить 2-приближённый алгоритм, решающий эту задачу. Ключевым моментом решения является следующее наблюдение: для любых точек маршрута $u,v,w$ справедливо неравенство  $\rho(u,v) \leq \rho(u,w) + \rho(w,v)$, где $\rho(x,y)$~"--- расстояние между точками маршрута $x$ и $y$. Помогите программисту Ozon построить линейный 2-приближённый алгоритм, решающий задачу. Вход: взвешенный граф, вершины которого~"--- точки маршрута, а веса~"--- расстояния между точками маршрута; между любыми двумя точками маршрута расстояние определено. Требуется минимизировать сумму весов вдоль пути курьера (который обязан посетить каждую точку маршрута ровно один раз).
+			
+\end{document}
+  

@@ -1,0 +1,336 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\PR}{ O{null} }{\setcounter{subproblem}{0}
+	\medskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem~{\sf(\bracketspace{#1})}.}}	
+
+
+
+\def\prend{
+	\medskip
+%	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {AI Masters :: МетОпты 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 3}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\usepackage{enumitem}
+\usepackage[linesnumbered]{algorithm2e}   
+
+\newcommand{\comments}[2][Комментарий]{
+\medskip
+	\noindent{\bfseries #1: }{\textsl{#2}}
+%\medskip	
+}
+
+\def\ukaz{\noindent\textbf{Указание.} }
+
+\begin{document}
+	\PR[] Сопряженные функции
+    \begin{enumerate} 
+        \item $f(x)=\sum_{i=1}^nx_i\log(\frac{x_i}{1^Tx})$
+        \newline
+        \\ Рассмотрим область определения функции. Если есть элемент вектора, который по знаку отличен от суммы всех элементов, то логарифм будет неопределен, поэтому область определения - вектора, у которого все элементы одного знака. Рассмотрим случай, когда x > 0.
+        \\$f^*(y) = sup_x(y^Tx - f(x)) = sup_x(y^Tx -\sum_{i=1}^nx_i\log(\frac{x_i}{1^Tx}))$
+        \\ Проверим функцию на выпуклость.
+        \\$f(\alpha x + (1-\alpha)y) = \sum_{i=1}^n \alpha x_i + (1-\alpha)y_i\log(\frac{\alpha x_i + (1-\alpha)y_i}{\alpha 1^Tx + (1-\alpha)1^Ty})$
+        \\Благодаря log-sum inequality: $\alpha x_i + (1-\alpha)y_i\log(\frac{\alpha x_i + (1-\alpha)y_i}{\alpha 1^Tx + (1-\alpha)1^Ty}) \leq \alpha x_i \log(\frac{\alpha x_i}{\alpha 1^Tx}) + (1-\alpha)y_i\log(\frac{(1-\alpha)y_i}{(1-\alpha)1^Ty})=\alpha x_i \log(\frac{x_i}{1^Tx}) + (1-\alpha)y_i\log(\frac{y_i}{1^Ty})$
+        \\Таким образом, $f(\alpha x + (1-\alpha)y) \leq \alpha f(x) + (1-\alpha) f(y)$, и функция f(x) выпукла. Отсюда следует, что функция под супремумом вогнута.
+        \\ Найдем производную: $(y^Tx - f(x))_k^{'}=y_k-\log(x_k)+\log(1^Tx)=0 \to y_k = \log(x_k/(1^Tx))$. Подставив это равенство в $f^*(y)$, получаем:
+        \\$sup_x(y^Tx - f(x)) = sup_x(y^Tx -\sum_{i=1}^nx_i\log(\frac{x_i}{1^Tx})) = sup_x(\sum_{i=1}^nx_i(y_i-\log(\frac{x_i}{1^Tx})))=0$
+        \\ Но для того, чтобы производные могли равняться нулю, надо чтобы выполнялось условие y < 0. Иначе, если есть $y_j \geq 0$, то соответствующую координату $x_k$ можно будет устремить в бесконечность, и супремум уйдет тоже в бесконечность(минус логарифм уйдет в плюс бесконечность, так как его аргумент будет стремиться к нулю, и $x_ky_k$ тоже уйдет в плюс бесконечность).
+        \\ $f^*(y)=$
+        \begin{cases}
+        0, $y < 0$\\
+        \infty, \exists y_k \geq 0
+        \end{cases}
+        \\ Если рассматривать x<0, $f(x)=-\sum_{i=1}^n-x_i\log(\frac{-x_i}{-1^Tx})$ - вогнутая функция. Аналогично, рассмотрев производную, можно сделать выводы, что если y > 0, то супремум 0, иначе бесконечность.
+        \item $f(x)=max_{k=1..p}(a_ix+b_i)$
+        \newline
+        \\ Будем считать, что все $a_i$ - различные, иначе если одинаковые $a_i=a_j$, то $a_ix+b_i$ или $a_jx+b_j$ будет всегда больше другого выражения, в зависимости от отношения между $b_i$ и $b_j$. Без ограничения общности, будем считать, что $a_1 < a_2 < .. < a_p$.
+        \\ Рассмотрим $a_ix+b_i$ и $a_{i+1}x+b_{i+1}$: 
+        \\ $a_ix+b_i < a_{i+1}x+b_{i+1} \iff b_i - b_{i+1} < (a_{i+1} - a_i)x \iff \frac{b_i - b_{i+1}}{a_{i+1} - a_i} < x$
+        \\ Значит $f(x) = a_ix+b_i$, если $x_i \in [\frac{b_{i-1} - b_i}{a_i - a_{i-1}}\dots\frac{b_i - b_{i+1}}{a_{i+1} - a_i}]$. Будем считать, что все такие интервалы существуют, иначе данную пару $a_i,b_i$ можно отбросить и не рассматривать. Для крайних случаев, х должен быть меньше $\frac{b_1 - b_2}{a_2 - a_1}$ или больше $\frac{b_{p-1} - b_p}{a_p - a_{p-1}}$
+        \\ Пусть $a_i \leq y \leq a_{i+1}$. Тогда супремум будет достигаться в точке $\frac{b_i - b_{i+1}}{a_{i+1} - a_i}$.
+        \\$f^*(y) = -b_i-(b_{i+1}-b_i)\frac{y-a_i}{a_{i+1}-a_i}$
+        \\ Если $y < a_1$, то супремум будет достигаться на минус бесконечности, если $y > a_p$, то на плюс бесконечности, и супремумы в обоих случаях будет бесконечность.
+        \\ Таким образом, $f^*(x)$=
+        \begin{cases}
+        $-b_i-(b_{i+1}-b_i)\frac{y-a_i}{a_{i+1}-a_i},\ a_i < y < a_{i+1}$\\
+        \infty, $y<a_1$ или $y>a_p$
+        \end{cases}
+        \item $g(x)=inf_{x_1+x_2+..+x_k=x}(f_1(x_1)+..+f_k(x_k))$
+        \newline
+        \\$g^*(y) = sup_{x_1+x_2+..+x_k=x}(x^Ty-f_1(x_1)-..-f_k(x_k))=sup_{x_1+x_2+..+x_k}((x_1+x_2+..+x_k)^Ty-f_1(x_1)-..-f_k(x_k))=sup_{x_1+x_2+..+x_k}(x_1^Ty-f_1(x_1)+x_2^Ty-f_2(x_2)+..+x_k^Ty-f_k(x_k)) = sup_{x_1}(x_1^Ty-f_1(x_1))+..+sup_{x_k}(x_k^Ty-f_k(x_k))=f_1^*(y)+..+f_k^*(y)$.
+        \\Поэтому: $g^*(y) = f_1^*(y)+..+f_k^*(y)$
+        \item Huber loss
+        \newline
+        \\ Рассмотрим производную данной функции:
+        \begin{cases}
+        1, x > 1\\
+        x, $-1 \leq x \leq 1$\\
+        -1, x < -1
+        \end{cases}
+        \\Как видно, производная неубывает. Также из курса матанализа известно, что функция выпукла тогда и только тогда, когда производная не убывает, значит наша функция выпукла.
+        \\ $f^*(y) = sup_x(xy - f(x))$. Так как f(x) - выпукла, то выражение под супремумом вогнуто. По критерию оптимальности, супремум достигается в точках $x^*$, где производная обращается в ноль.
+        \\ Рассмотрим случай x>1: $(xy-x+1/2)'=y-1$. Если y>1, то функция постоянно возрастает, и супремум равен бесконечности. Иначе, супремум равен y-1/2.
+        \\ Если x<-1:$(xy+x+1/2)'=y+1$. Если $y \geq -1$, то функция постоянно возрастает, и супремум равен -y-1/2, в точке x=-1. Иначе, супремум равен бесконечности, при х стремящемся к минус бесконечности.
+        \\ Если $-1 \leq x \leq 1$, то $(xy - x^2/2)'=y-x$. Если y вне отрезка [-1,1], то производная будет либо отрицательна, и тогда супремум равен -y-1/2, либо положителен, и супремум равен y-1/2. Иначе, супремум будет достигаться в точке y, и будет равен $y^2/2$.
+        \\ Таким образом, сопряженная функция $f^*(y)$ равна:
+        \begin{cases}
+        \infty, |y|>1\\
+        $y^2/2$, |y|\leq 1
+        \end{cases}
+        \item $f(X)=trace(X^{-1})$
+        \newline
+        \\Функция trace - линейная. $(trace(X))'=X$.
+        \\$(X^{-1})'=-X^{-2}$
+        \\$f^*(Y) =sup_X( <X,Y>-f(X))=sup_X(tr(X^TY)-tr(X^{-1}))$
+        \\ Рассмотрим Y, у которой есть положительное собственной значение. Пусть $Y=Q\Lambda Q^T$. Рассмотрим $X=Qdiag(t,1,1,..,1)Q^T$. Посчитаем:
+        \\ $tr(X^TY)-tr(X^{-1})=tr(Qdiag(t,1..1)\Lambda Q^T)-tr(Qdiag(1/t,1..1Q^T))=t\lambda_1 + \sum_{i=2}^n\lambda_i-1/t-(n-1)$, где $\lambda_1>0$
+        \\ Если устремить t в бесконечность, то данное выражение устреиться в бесконечность. Поэтому супремум будет равен бесконечности.
+        \\ Рассмотрим $0 \succeq Y$. По доказаному из предыдущего домашнего задания, эта функция выпукла, поэтому функция под супремумом - вогнутая. Найдем производную:
+        \\$(tr(X^TY)-tr(X^{-1}))'=Y+X^{-2}=0\to X=(-Y)^{-1/2}$. Подставим это в выражение $f^*(y)$:
+        \\ $tr((-Y)^{-1/2}Y)-tr((-Y)^{1/2})=-2tr(-Y)^{1/2}$
+        \\Таким образом, $f^*(Y)$=
+        \begin{cases}
+        -2tr(-Y)^{1/2}, 0 \succeq Y\\
+        \infty, otherwise
+        \end{cases}
+    \end{enumerate}
+    \prend
+
+    \PR[] Субдифференциал
+    \begin{enumerate}
+    \item Докажем, что оба условия слудуют друг из друга.
+    \\ Пусть $y^Tx=f(x)+f^*(y)$. По определению, для любых z, $f^*(y)+f(z)\geq y^Tz\to y^Tx-f(x)+f(z)\geq y^Tz\to f(z)\geq y^T(z-x)+f(x)$. Отсюда следует, что $y \in \partial f(x)$
+    \\ В обратную сторону. Из условия $y \in \partial f(x)$, для любых z имеем:
+    \\ $f(z)\geq y^T(z-x)+f(x)\to y^Tx - f(x) \geq y^Tz-f(z)$. Значит, $y^Tx - f(x) = sup_z(y^Tz-f(z))=f^*(y)\to y^Tx-f(x)=f^*(y)$, что и требовалось доказать.
+    \item $f(x) = sup_{0\leq t \leq 1}p(t)$. p(t) можно выразить как $sup_z(x^Tz)$, где $z=(1,t,..,t^{n-1})$. Нужно найти такие a, что $f(y)\geq f(x) + a^T(y-x)$. Пусть $z^*$-такой вектор, что достигается максимум $x^Tz^*$.
+    \\$f(y) \geq x^T(z^*-a)+a^Ty$. Отсюда следует, из произвольности y, что субдифференциал $\partial f(x) = \{y|y=(1,t,..t^{n-1}),\|y\|_{\infty} \leq 1, y^Tx=sup_z(z^Tx)\}$.
+    \\ Действительно, $f(y) \geq x^T(z^*-a)+a^Ty\to f(y) \geq a^Ty$, потому что $sup_z(z^Ty) \geq a^Ty\ \forall a$. 
+    \item $f(x)=\|x\|_1$.
+    \\Можем заметить, что $\|x\|_1=max\{y^Tx|y_i=\{-1,+1\}\}$. Функция $y^Tx$ - дифференциируема по х, и производная по k координате равна 1, если $x_k>0$, 1, если $x_k<0$, иначе можем взяь как +1, так и -1. Таким образом, субдифференциал в точке x будет равен:
+    \\$\partial f(x) = \{y|\|y\|_{\infty}\leq 1, y^Tx=\|x\|_1\}$ - выпуклая оболочка всех градиентов(так как целевая функция - максимум среди произведений)
+    \item
+    \item $f(x) = x_{[1]}+..+x_{[k]}$. Можно представить функцию, как $f(x)=max(x_{i1}+x_{i2}+..x_{ik}|1 \leq i1 < i2 ... < ik \leq n)=max(y^Tx|y_i=\{0,1\}, \sum_i^n y_i = k)$. $y^Tx$ - дифференциируема по х. Градиентом ее будет такой вектор, у которого единцы стоят на позициях k-масимальных элементов вектора x.
+    \\ Таким образом, субдифференциал функции равен $\partial f(x) = \{y|0 \leq y \leq 1, \sum_i^ny_i=k, y^Tx=x_{[1]}+..+x_{[k]}\}$
+    \end{enumerate}
+    \prend
+
+
+\end{document}
+  
